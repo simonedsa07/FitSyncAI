@@ -1,0 +1,286 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: #F6A8C8;
+  --accent-light: #FCE7EF;
+  --accent-dark: #14121A;
+  --page-bg: #FBEAF0;
+}
+
+[data-theme='mint-green'] {
+  --accent: #7FE7C4;
+  --accent-light: #E8FBF3;
+  --accent-dark: #14121A;
+  --page-bg: #EAFBF3;
+}
+
+[data-theme='lavender'] {
+  --accent: #C7A9F2;
+  --accent-light: #F3EAFD;
+  --accent-dark: #14121A;
+  --page-bg: #F3EAFC;
+}
+
+[data-theme='sky-blue'] {
+  --accent: #8FCFF7;
+  --accent-light: #E9F6FE;
+  --accent-dark: #14121A;
+  --page-bg: #EAF6FE;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: var(--page-bg);
+  color: #14121A;
+  transition: background-color 0.2s ease;
+}
+
+body {
+  font-family: var(--font-body), sans-serif;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display), sans-serif;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: #14121A;
+}
+
+/* Reusable neubrutalist primitives */
+@layer components {
+  .brutal-card {
+    @apply bg-white border-2 border-ink rounded-card shadow-brutal;
+  }
+
+  .brutal-card-accent {
+    @apply border-2 border-ink rounded-card shadow-brutal;
+    background-color: var(--accent);
+  }
+
+  .brutal-input {
+    @apply w-full border-2 border-ink rounded-xl2 px-4 py-3 text-ink placeholder:text-muted/70 bg-white outline-none transition-colors;
+  }
+
+  .brutal-input:focus {
+    background-color: var(--accent-light);
+  }
+
+  .btn-pill {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink px-6 py-3 font-semibold transition-transform active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-pill-accent {
+    @apply btn-pill shadow-brutal-sm hover:-translate-y-0.5;
+    background-color: var(--accent);
+    color: #14121A;
+  }
+
+  .btn-pill-dark {
+    @apply btn-pill shadow-brutal-sm hover:-translate-y-0.5 bg-ink text-white;
+  }
+
+  .btn-pill-ghost {
+    @apply btn-pill bg-white hover:-translate-y-0.5;
+  }
+
+  .chip {
+    @apply rounded-full border-2 border-ink px-5 py-2.5 font-semibold text-sm transition-colors;
+  }
+
+  .chip-active {
+    background-color: var(--accent);
+  }
+
+  .nav-pill {
+  @apply rounded-full border-2 border-transparent px-4 py-2 font-semibold text-sm text-ink/70 transition-all;
+}
+
+.nav-pill:hover {
+  @apply -translate-y-0.5 border-ink text-ink shadow-brutal-sm;
+  background-color: color-mix(in srgb, var(--accent) 45%, white);
+}
+
+.nav-pill-active {
+  @apply -translate-y-0.5 text-ink border-2 border-ink shadow-brutal-sm;
+  background-color: var(--accent);
+}
+}
+
+/* Simple scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #14121A;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+/* ---------- Dark mode overrides (scoped to the logged-in app only) ---------- */
+.dark {
+  --page-bg: #0f0d14;
+  --accent-light: rgba(255, 255, 255, 0.08);
+}
+
+.dark body {
+  color: #f4f4f6;
+}
+
+.dark .bg-white {
+  background-color: #201c28;
+}
+
+.dark .border-ink {
+  border-color: #f4f4f6;
+}
+
+.dark .shadow-brutal {
+  box-shadow: 5px 5px 0px 0px rgba(255, 255, 255, 0.18);
+}
+.dark .shadow-brutal-sm {
+  box-shadow: 3px 3px 0px 0px rgba(255, 255, 255, 0.18);
+}
+.dark .shadow-brutal-lg {
+  box-shadow: 8px 8px 0px 0px rgba(255, 255, 255, 0.18);
+}
+
+.dark .text-ink {
+  color: #f4f4f6;
+}
+.dark .text-ink\/80 {
+  color: rgba(244, 244, 246, 0.85);
+}
+.dark .text-ink\/70 {
+  color: rgba(244, 244, 246, 0.72);
+}
+.dark .text-ink\/60 {
+  color: rgba(244, 244, 246, 0.62);
+}
+.dark .text-ink\/50 {
+  color: rgba(244, 244, 246, 0.52);
+}
+.dark .text-ink\/40 {
+  color: rgba(244, 244, 246, 0.42);
+}
+
+.dark .brutal-card,
+.dark .brutal-input,
+.dark .btn-pill-ghost,
+.dark .chip {
+  background-color: #201c28;
+  border-color: #f4f4f6;
+  box-shadow: 5px 5px 0px 0px rgba(255, 255, 255, 0.18);
+}
+
+.dark .btn-pill-ghost:hover {
+  background-color: #29243250;
+}
+
+.dark .brutal-card-accent,
+.dark .nav-pill-active,
+.dark .chip-active {
+  border-color: #f4f4f6;
+  box-shadow: 5px 5px 0px 0px rgba(255, 255, 255, 0.18);
+}
+/* ---------- Chat markdown formatting ---------- */
+.prose-chat p {
+  margin: 0 0 0.5rem 0;
+}
+.prose-chat p:last-child {
+  margin-bottom: 0;
+}
+.prose-chat ul,
+.prose-chat ol {
+  margin: 0.25rem 0 0.5rem 1.1rem;
+  padding: 0;
+}
+.prose-chat ul {
+  list-style: disc;
+}
+.prose-chat ol {
+  list-style: decimal;
+}
+.prose-chat li {
+  margin-bottom: 0.2rem;
+}
+.prose-chat strong {
+  font-weight: 800;
+}
+.prose-chat code {
+  background: rgba(20, 18, 26, 0.1);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+.prose-chat a {
+  text-decoration: underline;
+  font-weight: 600;
+}
+/* ---------- Landing page marquee ---------- */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+/* These surfaces (auth, onboarding, marketing landing) always stay light,
+   regardless of the app's dark mode toggle. */
+[data-force-light] {
+  color-scheme: light;
+}
+[data-force-light] .bg-white { background-color: #ffffff !important; }
+[data-force-light] .border-ink { border-color: #14121A !important; }
+[data-force-light] .text-ink { color: #14121A !important; }
+[data-force-light] .text-ink\/80 { color: rgba(20,18,26,0.85) !important; }
+[data-force-light] .text-ink\/70 { color: rgba(20,18,26,0.72) !important; }
+[data-force-light] .text-ink\/60 { color: rgba(20,18,26,0.62) !important; }
+[data-force-light] .text-ink\/50 { color: rgba(20,18,26,0.52) !important; }
+[data-force-light] .text-ink\/40 { color: rgba(20,18,26,0.42) !important; }
+[data-force-light] .shadow-brutal { box-shadow: 5px 5px 0px 0px rgba(20,18,26,1) !important; }
+[data-force-light] .shadow-brutal-sm { box-shadow: 3px 3px 0px 0px rgba(20,18,26,1) !important; }
+[data-force-light] .shadow-brutal-lg { box-shadow: 8px 8px 0px 0px rgba(20,18,26,1) !important; }
+[data-force-light] .brutal-card,
+[data-force-light] .brutal-input,
+[data-force-light] .btn-pill-ghost,
+[data-force-light] .chip {
+  background-color: #ffffff !important;
+  border-color: #14121A !important;
+  box-shadow: 5px 5px 0px 0px rgba(20,18,26,1) !important;
+}
+[data-force-light] .brutal-card-accent,
+[data-force-light] .nav-pill-active,
+[data-force-light] .chip-active {
+  border-color: #14121A !important;
+  box-shadow: 5px 5px 0px 0px rgba(20,18,26,1) !important;
+}
+[data-force-light] body { color: #14121A !important; }
+/* ---------- Button shine sweep ---------- */
+.btn-pill-accent,
+.btn-pill-dark {
+  position: relative;
+  overflow: hidden;
+}
+.btn-pill-accent::after,
+.btn-pill-dark::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+.btn-pill-accent:hover::after,
+.btn-pill-dark:hover::after {
+  left: 130%;
+}
