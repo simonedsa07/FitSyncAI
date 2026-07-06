@@ -9,11 +9,13 @@ import { PlaylistCard } from '@/components/dashboard/PlaylistCard';
 import { StatsCard } from '@/components/dashboard/StatsCard';
 import Link from 'next/link';
 import { todayLabel, calculateWeeklyCalorieTarget } from '@/lib/utils';
+import { useSpotifyPlayerStore } from '@/store/useSpotifyPlayerStore';
 
 export default function DashboardPage() {
   const { profile } = useAuth();
   const { plan, completeDay } = useWorkout();
   const { connect } = useSpotify(false);
+  const { activePlaylistUrl, clearActivePlaylist } = useSpotifyPlayerStore();
 
   const weekDays = plan?.days ?? [];
   const today = weekDays.find((d) => d.day === todayLabel()) ?? null;
@@ -55,6 +57,35 @@ export default function DashboardPage() {
           <PlaylistCard connected={false} onConnect={connect} />
         </motion.div>
       </div>
+
+      {activePlaylistUrl ? (
+        <motion.div
+          className="mt-6 rounded-2xl border border-emerald-300 bg-emerald-50 p-4"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-emerald-800">Spotify ready</p>
+              <p className="text-sm text-emerald-700">Your playlist is ready to listen to from the dashboard.</p>
+            </div>
+            <div className="flex gap-2">
+              <a
+                href={activePlaylistUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white"
+              >
+                Open Spotify
+              </a>
+              <button type="button" onClick={clearActivePlaylist} className="rounded-lg border border-emerald-300 px-3 py-2 text-sm font-semibold text-emerald-700">
+                Clear
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      ) : null}
 
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
         {[

@@ -62,6 +62,8 @@ export async function POST(request: NextRequest) {
         .eq('user_id', user.id);
     }
 
+    const enhancedPrompt = `${prompt}\n\nIf the user asks for music or a playlist, you MUST return a strict JSON object with this exact structure: { "message": "your conversational reply", "spotify_uris": ["spotify:track:123", "spotify:track:456"] }. Do not include markdown formatting.`;
+
     const phiniteResponse = await fetch(PHINITE_AGENT_URL, {
       method: 'POST',
       headers: {
@@ -69,7 +71,7 @@ export async function POST(request: NextRequest) {
         'X-Spotify-Access-Token': accessToken,
       },
       body: JSON.stringify({
-        prompt,
+        prompt: enhancedPrompt,
         spotify_access_token: accessToken,
         user_id: user.id,
       }),

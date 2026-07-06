@@ -4,18 +4,18 @@ const SPOTIFY_API_BASE = 'https://api.spotify.com/v1';
 
 const SCOPES = ['playlist-modify-public', 'playlist-modify-private', 'user-read-email'].join(' ');
 
-export function getSpotifyAuthUrl(state: string) {
+export function getSpotifyAuthUrl(state: string, redirectUri?: string) {
   const params = new URLSearchParams({
     response_type: 'code',
     client_id: process.env.SPOTIFY_CLIENT_ID!,
     scope: SCOPES,
-    redirect_uri: process.env.SPOTIFY_REDIRECT_URI!,
+    redirect_uri: redirectUri ?? process.env.SPOTIFY_REDIRECT_URI!,
     state,
   });
   return `${SPOTIFY_AUTH_URL}?${params.toString()}`;
 }
 
-export async function exchangeCodeForToken(code: string) {
+export async function exchangeCodeForToken(code: string, redirectUri?: string) {
   const basic = Buffer.from(
     `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
   ).toString('base64');
@@ -29,7 +29,7 @@ export async function exchangeCodeForToken(code: string) {
     body: new URLSearchParams({
       grant_type: 'authorization_code',
       code,
-      redirect_uri: process.env.SPOTIFY_REDIRECT_URI!,
+      redirect_uri: redirectUri ?? process.env.SPOTIFY_REDIRECT_URI!,
     }),
   });
 
@@ -65,25 +65,30 @@ export async function refreshSpotifyToken(refreshToken: string) {
 export async function createWorkoutPlaylist(
   accessToken: string,
   userId: string,
-  intensity: 'low' | 'medium' | 'high'
+  intensity: 'low' | 'medium' | 'high',
+  options: { spotifyUris?: string[]; name?: string; description?: string } = {}
 ) {
   const meRes = await fetch(`${SPOTIFY_API_BASE}/me`, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
   const me = await meRes.json();
 
-  const seedGenreByIntensity = {
-    low: 'chill',
-    medium: 'pop-workout',
-    high: 'edm',
-  }[intensity];
+  let uris = (options.spotifyUris ?? []).filter((uri): uri is string => typeof uri === 'string' && uri.trim().length > 0);
 
-  const searchRes = await fetch(
-    `${SPOTIFY_API_BASE}/search?q=genre:${seedGenreByIntensity}&type=track&limit=20`,
-    { headers: { Authorization: `Bearer ${accessToken}` } }
-  );
-  const searchData = await searchRes.json();
-  const uris: string[] = (searchData.tracks?.items ?? []).map((t: { uri: string }) => t.uri);
+  if (!uris.length) {
+    const seedGenreByIntensity = {
+      low: 'chill',
+      medium: 'pop-workout',
+      high: 'edm',
+    }[intensity];
+
+    const searchRes = await fetch(
+      `${SPOTIFY_API_BASE}/search?q=genre:${seedGenreByIntensity}&type=track&limit=20`,
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+    const searchData = await searchRes.json();
+    uris = (searchData.tracks?.items ?? []).map((t: { uri: string }) => t.uri);
+  }
 
   const playlistRes = await fetch(`${SPOTIFY_API_BASE}/users/${me.id}/playlists`, {
     method: 'POST',
@@ -92,8 +97,8 @@ export async function createWorkoutPlaylist(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      name: 'FitSync AI Workout Mix',
-      description: 'AI-generated playlist matched to your workout intensity.',
+      name: options.name ?? 'FitSync AI Workout Mix',
+      description: options.description ?? 'AI-generated playlist matched to your workout intensity.',
       public: false,
     }),
   });

@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
   if (!allowed) {
     return NextResponse.json({ error: 'Too many requests — please wait a moment.' }, { status: 429 });
   }
-  const { intensity = 'medium' } = await request.json();
+  const { intensity = 'medium', spotify_uris = [], name, description } = await request.json();
   const admin = createSupabaseAdminClient();
 
   const { data: tokenRow } = await admin
@@ -43,6 +43,10 @@ export async function POST(request: NextRequest) {
       .eq('user_id', user.id);
   }
 
-  const playlist = await createWorkoutPlaylist(accessToken, user.id, intensity);
+  const playlist = await createWorkoutPlaylist(accessToken, user.id, intensity, {
+    spotifyUris: Array.isArray(spotify_uris) ? spotify_uris : [],
+    name,
+    description,
+  });
   return NextResponse.json({ playlist });
 }

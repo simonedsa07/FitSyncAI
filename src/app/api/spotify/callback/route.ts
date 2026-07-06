@@ -6,14 +6,15 @@ export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get('code');
   const state = request.nextUrl.searchParams.get('state'); // this is the user id we passed in
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? request.nextUrl.origin;
 
   if (!code || !state) {
     return NextResponse.redirect(new URL('/profile?spotify=error', siteUrl));
   }
 
   try {
-    const tokens = await exchangeCodeForToken(code);
+    const redirectUri = process.env.SPOTIFY_REDIRECT_URI ?? `${request.nextUrl.origin}/api/spotify/callback`;
+    const tokens = await exchangeCodeForToken(code, redirectUri);
     const admin = createSupabaseAdminClient();
 
     await admin.from('spotify_tokens').upsert({
