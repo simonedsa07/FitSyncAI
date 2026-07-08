@@ -36,8 +36,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         id="phinite-chatbot"
         src="https://cdn.phinite.ai/website/prod/index.js"
         data-integration-id="3FwzVy6Pu"
-        data-company-env="development"
-        strategy="afterInteractive"
+        data-company-env="production"
       />
     </div>
   );
