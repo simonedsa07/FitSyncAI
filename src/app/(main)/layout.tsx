@@ -37,6 +37,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         src="https://cdn.phinite.ai/website/prod/index.js"
         data-integration-id="3FwzVy6Pu"
         data-company-env="production"
+        strategy="afterInteractive"
       />
     </div>
   );
