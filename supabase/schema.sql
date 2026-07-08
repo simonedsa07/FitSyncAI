@@ -24,6 +24,48 @@ create policy "Users can view own profile" on profiles for select using (auth.ui
 create policy "Users can update own profile" on profiles for update using (auth.uid() = id);
 create policy "Users can insert own profile" on profiles for insert with check (auth.uid() = id);
 
+-- Rate limiting for server-side API requests
+create table if not exists rate_limits (
+  id uuid primary key default uuid_generate_v4(),
+  user_id uuid not null references profiles(id) on delete cascade,
+  route text not null,
+  created_at timestamptz not null default now()
+);
+
+alter table rate_limits disable row level security;
+
+create index if not exists rate_limits_user_route_created_at_idx on rate_limits (user_id, route, created_at);
+
+create or replace function check_rate_limit(
+  p_user_id uuid,
+  p_route text,
+  p_limit int,
+  p_window_seconds int
+) returns boolean language plpgsql as $$
+declare
+  request_count int;
+begin
+  insert into rate_limits (user_id, route) values (p_user_id, p_route);
+
+  select count(*) into request_count
+  from rate_limits
+  where user_id = p_user_id
+    and route = p_route
+    and created_at > now() - (p_window_seconds || ' seconds')::interval;
+
+  if request_count > p_limit then
+    return false;
+  end if;
+
+  delete from rate_limits
+  where user_id = p_user_id
+    and route = p_route
+    and created_at <= now() - (p_window_seconds || ' seconds')::interval;
+
+  return true;
+end;
+$$;
+
 -- Workout plans (days stored as jsonb array matching WorkoutDay[])
 create table if not exists workout_plans (
   id uuid primary key default uuid_generate_v4(),

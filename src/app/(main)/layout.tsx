@@ -7,6 +7,7 @@ import { Sidebar } from '@/components/layout/Sidebar';
 import { ChatBox } from '@/components/chat/ChatBox';
 import { DarkModeToggle } from '@/components/layout/DarkModeToggle';
 import { AppBackground } from '@/components/layout/AppBackground';
+import Script from 'next/script';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -25,6 +26,13 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
             transition={{ duration: 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
           >
             {children}
+            {/* Phinite Chatbot Script */}
+        <Script
+          src="https://cdn.phinite.ai/website/prod/index.js"
+          data-integration-id="3FwzVy6Pu"
+          data-company-env="development"
+          strategy="afterInteractive"
+        />
           </motion.div>
         </AnimatePresence>
       </main>

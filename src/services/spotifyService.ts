@@ -1,13 +1,20 @@
-export function connectSpotify() {
-  window.location.href = '/api/spotify/login';
+export interface PhiniteResult {
+  raw: string;
+  spotifyPlaylistUrl: string | null;
+  spotifyPlaylistId: string | null;
+  otherLink: string | null;
 }
 
-export async function createPlaylist(intensity: 'low' | 'medium' | 'high' = 'medium') {
-  const res = await fetch('/api/spotify/create-playlist', {
+export async function askMusicAgent(message: string): Promise<PhiniteResult> {
+  const res = await fetch('/api/phinite/generate-playlist', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ intensity }),
+    body: JSON.stringify({ message }),
   });
-  if (!res.ok) throw new Error('Failed to create playlist');
-  return res.json();
+
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(body?.error ?? `Failed to reach music agent (HTTP ${res.status})`);
+  }
+  return body;
 }

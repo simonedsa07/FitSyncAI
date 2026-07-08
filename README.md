@@ -22,7 +22,9 @@ npm install
 Copy `.env.local.example` to `.env.local` and fill in:
 
 - `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` — from Supabase project settings.
-- `SUPABASE_SERVICE_ROLE_KEY` — used server-side only (Spotify token storage).
+- `SUPABASE_SERVICE_ROLE_KEY` — used server-side only (Spotify token storage and admin DB access).
+- `PHINITE_AGENT_URL` — the full Phinite A2A agent URL from your workspace Agent Registry. For test builds this usually includes both `flowId` and `registryId` (e.g. `https://app.phinite.ai/api/v1/ai/a2a/{flowId}/{registryId}`).
+- `PHINITE_API_KEY` — the Phinite API key used for playlist generation. This is sent as `X-API-Key` when invoking A2A agents.
 - `OPENAI_API_KEY` — powers the `/api/chat` coach.
 - `SPOTIFY_CLIENT_ID` / `SPOTIFY_CLIENT_SECRET` / `SPOTIFY_REDIRECT_URI` — from a Spotify
   Developer app. Redirect URI must match exactly, e.g. `http://localhost:3000/api/spotify/callback`.

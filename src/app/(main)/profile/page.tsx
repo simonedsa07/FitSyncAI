@@ -1,42 +1,14 @@
 'use client';
 
-import { Suspense, useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/lib/supabaseClient';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
-import { connectSpotify } from '@/services/spotifyService';
 import { GOAL_OPTIONS, ACTIVITY_OPTIONS } from '@/lib/options';
 import type { ActivityLevel, Gender, Goal } from '@/types/user';
-
-function SpotifyStatusBanner() {
-  const searchParams = useSearchParams();
-  const spotifyStatus = searchParams.get('spotify');
-
-  if (!spotifyStatus) return null;
-
-  return (
-    <>
-      {spotifyStatus === 'not_configured' && (
-        <p className="text-xs font-semibold text-red-600">
-          Spotify isn&apos;t configured yet — add SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, and
-          SPOTIFY_REDIRECT_URI to .env.local (see the setup guide) and restart the server.
-        </p>
-      )}
-      {spotifyStatus === 'error' && (
-        <p className="text-xs font-semibold text-red-600">
-          Spotify connection failed. Check your Client ID/Secret and redirect URI match exactly.
-        </p>
-      )}
-      {spotifyStatus === 'connected' && (
-        <p className="text-xs font-semibold text-emerald-600">Spotify connected successfully!</p>
-      )}
-    </>
-  );
-}
 
 export default function ProfilePage() {
   const { profile } = useAuth();
@@ -197,31 +169,6 @@ export default function ProfilePage() {
           </Button>
         </Card>
       </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.1 }}
-      >
-        <Card className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl2 border-2 border-ink brutal-card-accent">
-              🎵
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-ink/50">Spotify</p>
-              <p className="font-bold">Not connected</p>
-            </div>
-          </div>
-          <Button variant="accent" onClick={connectSpotify}>
-            Connect
-          </Button>
-        </Card>
-      </motion.div>
-
-      <Suspense fallback={null}>
-        <SpotifyStatusBanner />
-      </Suspense>
     </div>
   );
 }
