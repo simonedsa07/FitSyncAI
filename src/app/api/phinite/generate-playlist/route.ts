@@ -18,14 +18,27 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Too many requests — please wait a moment.' }, { status: 429 });
   }
 
-  const { message } = await request.json().catch(() => ({}));
+  const body = await request.json().catch(() => ({}));
+  const prompt = typeof body?.prompt === 'string' ? body.prompt.trim() : '';
+  const legacyMessage = typeof body?.message === 'string' ? body.message.trim() : '';
+  const musicPlan = body?.music_plan;
+  const hasMusicPlan = typeof musicPlan === 'object' && musicPlan !== null && !Array.isArray(musicPlan);
 
-  if (!message || typeof message !== 'string' || message.length > 500) {
-    return NextResponse.json({ error: 'A message is required (under 500 characters)' }, { status: 400 });
+  if (!hasMusicPlan && !prompt && !legacyMessage) {
+    return NextResponse.json(
+      { error: 'Send either music_plan or a natural-language prompt.' },
+      { status: 400 }
+    );
+  }
+
+  if ((prompt && prompt.length > 500) || (legacyMessage && legacyMessage.length > 500)) {
+    return NextResponse.json({ error: 'Prompt must be under 500 characters.' }, { status: 400 });
   }
 
   try {
-    const result = await callPhiniteAgent(message);
+    const result = await callPhiniteAgent(
+      hasMusicPlan ? { music_plan: musicPlan } : { prompt: prompt || legacyMessage }
+    );
     return NextResponse.json(result);
   } catch (err) {
     console.error('Phinite playlist generation failed:', err);

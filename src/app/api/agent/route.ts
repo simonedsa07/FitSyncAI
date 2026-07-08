@@ -3,6 +3,7 @@ import { createSupabaseServerClient, createSupabaseAdminClient } from '@/lib/sup
 import { refreshSpotifyToken } from '@/lib/spotify';
 
 const PHINITE_AGENT_URL = process.env.PHINITE_AGENT_URL ?? 'https://app.phinite.ai/api/v1/ai/a2a/zwi3lh_mv';
+const PHINITE_API_KEY = process.env.PHINITE_API_KEY;
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
     }
 
-    let body: { prompt?: unknown };
+    let body: { prompt?: unknown; music_plan?: unknown };
     try {
       body = await request.json();
     } catch {
@@ -24,8 +25,11 @@ export async function POST(request: NextRequest) {
     }
 
     const prompt = typeof body?.prompt === 'string' ? body.prompt.trim() : '';
-    if (!prompt) {
-      return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
+    const hasMusicPlan =
+      typeof body?.music_plan === 'object' && body.music_plan !== null && !Array.isArray(body.music_plan);
+
+    if (!prompt && !hasMusicPlan) {
+      return NextResponse.json({ error: 'Send either music_plan or a natural-language prompt.' }, { status: 400 });
     }
 
     const admin = createSupabaseAdminClient();
@@ -62,19 +66,21 @@ export async function POST(request: NextRequest) {
         .eq('user_id', user.id);
     }
 
-    const enhancedPrompt = `${prompt}\n\nIf the user asks for music or a playlist, you MUST return a strict JSON object with this exact structure: { "message": "your conversational reply", "spotify_uris": ["spotify:track:123", "spotify:track:456"] }. Do not include markdown formatting.`;
+    const phinitePayload = hasMusicPlan ? { music_plan: body.music_plan } : { prompt };
 
     const phiniteResponse = await fetch(PHINITE_AGENT_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-Spotify-Access-Token': accessToken,
+        ...(PHINITE_API_KEY
+          ? {
+              'X-API-Key': PHINITE_API_KEY,
+              Authorization: `Bearer ${PHINITE_API_KEY}`,
+            }
+          : {}),
       },
-      body: JSON.stringify({
-        prompt: enhancedPrompt,
-        spotify_access_token: accessToken,
-        user_id: user.id,
-      }),
+      body: JSON.stringify(phinitePayload),
     });
 
     const responseText = await phiniteResponse.text();

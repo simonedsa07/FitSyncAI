@@ -4,6 +4,10 @@ import { useState, FormEvent } from 'react';
 import { SpotlightCard as Card } from '@/components/ui/SpotlightCard';
 import { askMusicAgent, PhiniteResult } from '@/services/spotifyService';
 
+function getSpotifyPlaylistId(url: string | null) {
+  return url?.match(/playlist\/([A-Za-z0-9]+)/)?.[1] ?? null;
+}
+
 export function PlaylistCard() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -26,6 +30,8 @@ export function PlaylistCard() {
     }
   }
 
+  const spotifyPlaylistId = getSpotifyPlaylistId(result?.spotify_playlist_link ?? null);
+
   return (
     <Card className="flex h-full flex-col">
       <div className="mb-4 flex items-start justify-between">
@@ -39,11 +45,11 @@ export function PlaylistCard() {
         e.g. &quot;45 min intense cardio playlist, kpop — mainly BTS and SEVENTEEN&quot;
       </p>
 
-      {result?.spotifyPlaylistId && (
+      {spotifyPlaylistId && (
         <>
           <div className="mt-3 overflow-hidden rounded-xl2 border-2 border-ink">
             <iframe
-              src={`https://open.spotify.com/embed/playlist/${result.spotifyPlaylistId}?utm_source=generator`}
+              src={`https://open.spotify.com/embed/playlist/${spotifyPlaylistId}?utm_source=generator`}
               width="100%"
               height="152"
               frameBorder="0"
@@ -52,8 +58,15 @@ export function PlaylistCard() {
               title="Generated Spotify playlist"
             />
           </div>
+          {result?.playlist_name && (
+            <p className="mt-2 text-xs font-semibold text-ink/70">
+              {result.playlist_name}
+              {result.track_count ? ` · ${result.track_count} tracks` : ''}
+              {result.playlist_duration ? ` · ${result.playlist_duration} min` : ''}
+            </p>
+          )}
           <a
-            href={result.spotifyPlaylistUrl ?? `https://open.spotify.com/playlist/${result.spotifyPlaylistId}`}
+            href={result?.spotify_playlist_link ?? `https://open.spotify.com/playlist/${spotifyPlaylistId}`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-pill-accent mt-3 w-full justify-center text-sm"
@@ -63,18 +76,18 @@ export function PlaylistCard() {
         </>
       )}
 
-      {!result?.spotifyPlaylistId && result?.otherLink && (
+      {!spotifyPlaylistId && result?.spotify_playlist_link && (
         <a
-          href={result.otherLink}
+          href={result.spotify_playlist_link}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-3 block rounded-xl2 border-2 border-ink bg-white px-3 py-2 text-xs font-semibold underline"
         >
-          {result.raw}
+          {result.playlist_name ?? result.spotify_playlist_link}
         </a>
       )}
 
-      {!result?.spotifyPlaylistId && !result?.otherLink && result?.raw && (
+      {!spotifyPlaylistId && !result?.spotify_playlist_link && result?.raw && (
         <p className="mt-3 rounded-xl2 border-2 border-ink bg-white px-3 py-2 text-xs">{result.raw}</p>
       )}
 
