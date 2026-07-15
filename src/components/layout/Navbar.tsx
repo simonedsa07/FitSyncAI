@@ -49,7 +49,7 @@ export function Navbar() {
     'flex h-10 w-10 items-center justify-center rounded-full border-2 border-ink bg-white shadow-brutal-sm transition-all hover:-translate-y-0.5 active:translate-y-0 active:shadow-none';
 
   return (
-    <header className="border-b-2 border-ink bg-white/90 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b-2 border-ink bg-white/90 backdrop-blur-sm">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/dashboard" className="flex items-center gap-2">
           <motion.div
