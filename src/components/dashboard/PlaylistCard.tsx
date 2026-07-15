@@ -1,36 +1,60 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { SpotlightCard as Card } from '@/components/ui/SpotlightCard';
-import { askMusicAgent, PhiniteResult } from '@/services/spotifyService';
-
-function getSpotifyPlaylistId(url: string | null) {
-  return url?.match(/playlist\/([A-Za-z0-9]+)/)?.[1] ?? null;
-}
+import { PLATFORMS, buildEmbedUrl, MusicPlatform } from '@/lib/musicEmbed';
+import {
+  fetchMusicEmbeds,
+  saveMusicEmbed,
+  deleteMusicEmbed,
+  MusicEmbedRecord,
+} from '@/services/musicService';
+import { useUserStore } from '@/store/useUserStore';
+import { cn } from '@/lib/utils';
 
 export function PlaylistCard() {
-  const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<PhiniteResult | null>(null);
+  const profile = useUserStore((s) => s.profile);
+  const [embeds, setEmbeds] = useState<MusicEmbedRecord[]>([]);
+  const [adding, setAdding] = useState<MusicPlatform | null>(null);
+  const [urlInput, setUrlInput] = useState('');
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(e: FormEvent) {
+  useEffect(() => {
+    if (!profile?.id) return;
+    fetchMusicEmbeds(profile.id).then(setEmbeds).catch(() => setEmbeds([]));
+  }, [profile?.id]);
+
+  async function handleAdd(e: FormEvent) {
     e.preventDefault();
-    if (!message.trim() || loading) return;
-    setLoading(true);
+    if (!adding || !urlInput.trim()) return;
     setError(null);
+    setSaving(true);
     try {
-      const data = await askMusicAgent(message.trim());
-      setResult(data);
-      setMessage('');
+      const { embedUrl } = buildEmbedUrl(adding, urlInput.trim());
+      if (!embedUrl) {
+        setError("That link doesn't look right — paste the direct playlist/album URL.");
+        return;
+      }
+      const saved = await saveMusicEmbed(adding, urlInput.trim());
+      setEmbeds((prev) => [saved, ...prev]);
+      setUrlInput('');
+      setAdding(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
+      setError(err instanceof Error ? err.message : 'Could not save that link');
     } finally {
-      setLoading(false);
+      setSaving(false);
     }
   }
 
-  const spotifyPlaylistId = getSpotifyPlaylistId(result?.spotify_playlist_link ?? null);
+  async function handleRemove(id: string) {
+    setEmbeds((prev) => prev.filter((e) => e.id !== id));
+    try {
+      await deleteMusicEmbed(id);
+    } catch (err) {
+      console.error('Failed to delete embed:', err);
+    }
+  }
 
   return (
     <Card className="flex h-full flex-col">
@@ -40,76 +64,109 @@ export function PlaylistCard() {
           🎵
         </div>
       </div>
-      <h3 className="font-display text-xl font-extrabold">Ask for a playlist</h3>
+      <h3 className="font-display text-xl font-extrabold">Your Playlists</h3>
       <p className="mt-1 text-sm text-ink/70">
-        e.g. &quot;45 min intense cardio playlist, kpop — mainly BTS and SEVENTEEN&quot;
+        Connect a playlist from whatever you already use.
       </p>
 
-      {spotifyPlaylistId && (
-        <>
-          <div className="mt-3 overflow-hidden rounded-xl2 border-2 border-ink">
-            <iframe
-              src={`https://open.spotify.com/embed/playlist/${spotifyPlaylistId}?utm_source=generator`}
-              width="100%"
-              height="152"
-              frameBorder="0"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-              title="Generated Spotify playlist"
-            />
+      {embeds.length > 0 && (
+        <div className="mt-4 space-y-4">
+          {embeds.map((embed) => {
+            const { embedUrl, height } = buildEmbedUrl(embed.platform, embed.url);
+            const platformInfo = PLATFORMS.find((p) => p.id === embed.platform);
+            return (
+              <div key={embed.id}>
+                <div className="mb-1 flex items-center justify-between">
+                  <span className="text-xs font-semibold text-ink/60">
+                    {platformInfo?.icon} {platformInfo?.label}
+                  </span>
+                  <button
+                    onClick={() => handleRemove(embed.id)}
+                    className="text-xs font-semibold text-ink/40 hover:text-red-600"
+                  >
+                    Remove
+                  </button>
+                </div>
+                {embedUrl ? (
+                  <div className="overflow-hidden rounded-xl2 border-2 border-ink">
+                    <iframe
+                      src={embedUrl}
+                      width="100%"
+                      height={height}
+                      frameBorder="0"
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                      loading="lazy"
+                      title={`${platformInfo?.label} playlist`}
+                    />
+                  </div>
+                ) : (
+                  <a
+                
+                    href={embed.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block rounded-xl2 border-2 border-ink bg-white px-3 py-2 text-xs font-semibold underline"
+                  >
+                    {embed.url}
+                  </a>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {!adding ? (
+        <div className="mt-4 grid grid-cols-4 gap-2">
+          {PLATFORMS.map((p) => (
+            <button
+              key={p.id}
+              onClick={() => {
+                setAdding(p.id);
+                setError(null);
+              }}
+              className="flex flex-col items-center gap-1 rounded-xl2 border-2 border-ink bg-white py-3 text-xl transition-transform hover:-translate-y-0.5"
+              title={p.label}
+            >
+              {p.icon}
+              <span className="text-[9px] font-bold uppercase text-ink/60">{p.label.split(' ')[0]}</span>
+            </button>
+          ))}
+        </div>
+      ) : (
+        <form onSubmit={handleAdd} className="mt-4 space-y-2">
+          <p className="text-xs font-bold uppercase tracking-wide text-ink/60">
+            {PLATFORMS.find((p) => p.id === adding)?.icon} {PLATFORMS.find((p) => p.id === adding)?.label}
+          </p>
+          <input
+            value={urlInput}
+            onChange={(e) => setUrlInput(e.target.value)}
+            placeholder={PLATFORMS.find((p) => p.id === adding)?.placeholder}
+            className="brutal-input text-sm"
+            autoFocus
+          />
+          {error && <p className="text-xs font-semibold text-red-600">{error}</p>}
+          <div className="flex gap-2">
+            <button
+              type="submit"
+              disabled={saving}
+              className="btn-pill-accent flex-1 justify-center text-sm"
+            >
+              {saving ? 'Adding…' : 'Add playlist'}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setAdding(null);
+                setError(null);
+              }}
+              className="btn-pill-ghost text-sm"
+            >
+              Cancel
+            </button>
           </div>
-          {result?.playlist_name && (
-            <p className="mt-2 text-xs font-semibold text-ink/70">
-              {result.playlist_name}
-              {result.track_count ? ` · ${result.track_count} tracks` : ''}
-              {result.playlist_duration ? ` · ${result.playlist_duration} min` : ''}
-            </p>
-          )}
-          <a
-            href={result?.spotify_playlist_link ?? `https://open.spotify.com/playlist/${spotifyPlaylistId}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-pill-accent mt-3 w-full justify-center text-sm"
-          >
-            🎧 Open in Spotify
-          </a>
-        </>
+        </form>
       )}
-
-      {!spotifyPlaylistId && result?.spotify_playlist_link && (
-        <a
-          href={result.spotify_playlist_link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 block rounded-xl2 border-2 border-ink bg-white px-3 py-2 text-xs font-semibold underline"
-        >
-          {result.playlist_name ?? result.spotify_playlist_link}
-        </a>
-      )}
-
-      {!spotifyPlaylistId && !result?.spotify_playlist_link && result?.raw && (
-        <p className="mt-3 rounded-xl2 border-2 border-ink bg-white px-3 py-2 text-xs">{result.raw}</p>
-      )}
-
-      {error && <p className="mt-3 text-xs font-semibold text-red-600">{error}</p>}
-
-      <form onSubmit={handleSubmit} className="mt-4 flex gap-2">
-        <input
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Describe the playlist you want…"
-          disabled={loading}
-          className="brutal-input flex-1 text-sm"
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-ink brutal-card-accent disabled:opacity-50"
-          aria-label="Send"
-        >
-          {loading ? '…' : '🎵'}
-        </button>
-      </form>
     </Card>
   );
 }
