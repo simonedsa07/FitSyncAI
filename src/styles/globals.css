@@ -258,6 +258,7 @@ h1, h2, h3, h4, .font-display {
 [data-force-light] .brutal-card-accent,
 [data-force-light] .nav-pill-active,
 [data-force-light] .chip-active {
+  background-color: var(--accent) !important;
   border-color: #14121A !important;
   box-shadow: 5px 5px 0px 0px rgba(20,18,26,1) !important;
 }
