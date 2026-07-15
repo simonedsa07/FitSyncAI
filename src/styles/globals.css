@@ -2,32 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --accent: #F6A8C8;
-  --accent-light: #FCE7EF;
+:root,
+[data-theme='blush-pink'] {
+  --accent: #FBC4CB;
+  --accent-light: #FEECEF;
   --accent-dark: #14121A;
-  --page-bg: #FBEAF0;
+  --page-bg: #FFF3F5;
 }
 
-[data-theme='mint-green'] {
-  --accent: #7FE7C4;
-  --accent-light: #E8FBF3;
+[data-theme='pale-plum'] {
+  --accent: #E0BBE4;
+  --accent-light: #F6ECF7;
   --accent-dark: #14121A;
-  --page-bg: #EAFBF3;
+  --page-bg: #FAF0FA;
 }
 
-[data-theme='lavender'] {
-  --accent: #C7A9F2;
-  --accent-light: #F3EAFD;
+[data-theme='soft-peach'] {
+  --accent: #FFDFD3;
+  --accent-light: #FFF5F1;
   --accent-dark: #14121A;
-  --page-bg: #F3EAFC;
+  --page-bg: #FFF8F6;
 }
 
-[data-theme='sky-blue'] {
-  --accent: #8FCFF7;
-  --accent-light: #E9F6FE;
+[data-theme='muted-sage'] {
+  --accent: #DCEEE2;
+  --accent-light: #F3FAF5;
   --accent-dark: #14121A;
-  --page-bg: #EAF6FE;
+  --page-bg: #F7FCF9;
+}
+
+[data-theme='warm-cream'] {
+  --accent: #FDF6ED;
+  --accent-light: #FFFBF6;
+  --accent-dark: #14121A;
+  --page-bg: #FAF4EC;
 }
 
 * {
