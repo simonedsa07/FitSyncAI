@@ -32,7 +32,7 @@ const FEATURES = [
   {
     icon: '🎨',
     title: 'Made It Yours',
-    desc: 'Five accent themes, light or dark — pick a look and it stays exactly how you left it.',
+    desc: 'Four accent themes, light or dark — pick a look and it stays exactly how you left it.',
   },
   {
     icon: '🔒',
@@ -49,7 +49,7 @@ const STEPS = [
 
 const MARQUEE_ITEMS = [
   'AI Workout Plans', 'Coach Chat', 'Progress Tracking', 'Spotify Sync',
-  'Dark Mode', '5 Themes', 'Weekly Regeneration', 'Weight Trends',
+  'Dark Mode', '4 Themes', 'Weekly Regeneration', 'Weight Trends',
 ];
 
 export default function LandingPage() {

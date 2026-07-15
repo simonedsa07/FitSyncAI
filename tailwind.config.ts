@@ -6,9 +6,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: '#14121A',
+        ink: 'var(--text-main)',
         paper: '#FFFFFF',
-        muted: '#6B7280',
+        muted: 'var(--text-muted)',
         accent: 'var(--accent)',
         'accent-light': 'var(--accent-light)',
         'accent-dark': 'var(--accent-dark)',
