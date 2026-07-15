@@ -7,6 +7,7 @@ import { Sidebar } from '@/components/layout/Sidebar';
 import { ChatBox } from '@/components/chat/ChatBox';
 import { DarkModeToggle } from '@/components/layout/DarkModeToggle';
 import { AppBackground } from '@/components/layout/AppBackground';
+import { PlaylistCard } from '@/components/dashboard/PlaylistCard';
 import Script from 'next/script';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
@@ -30,6 +31,12 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         </AnimatePresence>
       </main>
       <Sidebar />
+      <aside
+        aria-label="Music player"
+        className="fixed inset-x-4 top-20 z-20 max-h-[calc(100vh-7rem)] overflow-y-auto md:inset-x-auto md:top-auto md:bottom-6 md:right-6 md:w-[22rem]"
+      >
+        <PlaylistCard />
+      </aside>
       <ChatBox />
       <DarkModeToggle />
       <Script

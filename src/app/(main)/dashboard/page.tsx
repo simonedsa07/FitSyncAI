@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { useAuth } from '@/hooks/useAuth';
 import { useWorkout } from '@/hooks/useWorkout';
 import { WorkoutCard } from '@/components/dashboard/WorkoutCard';
-import { PlaylistCard } from '@/components/dashboard/PlaylistCard';
 import { StatsCard } from '@/components/dashboard/StatsCard';
 import Link from 'next/link';
 import { todayLabel, calculateWeeklyCalorieTarget } from '@/lib/utils';
@@ -34,23 +33,14 @@ export default function DashboardPage() {
         <p className="mt-1 text-ink/70">Let&apos;s crush today&apos;s session 💪</p>
       </motion.div>
 
-      <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="mt-8">
         <motion.div
-          className="lg:col-span-2"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.05 }}
           whileHover={{ y: -3 }}
         >
           <WorkoutCard day={today} onMarkDone={() => today && completeDay(today.day)} />
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.12 }}
-          whileHover={{ y: -3 }}
-        >
-          <PlaylistCard />
         </motion.div>
       </div>
 
