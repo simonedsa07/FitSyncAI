@@ -1,10 +1,10 @@
 export type MusicPlatform = 'spotify' | 'apple_music' | 'youtube_music' | 'soundcloud';
 
-export const PLATFORMS: { id: MusicPlatform; label: string; imgSrc: string; placeholder: string }[] = [
-  { id: 'spotify',       label: 'Spotify',       imgSrc: '/music-logos/spotify.jpg',       placeholder: 'https://open.spotify.com/playlist/...' },
-  { id: 'apple_music',   label: 'Apple Music',   imgSrc: '/music-logos/apple-music.png',   placeholder: 'https://music.apple.com/playlist/...' },
-  { id: 'youtube_music', label: 'YouTube Music', imgSrc: '/music-logos/youtube-music.png', placeholder: 'https://music.youtube.com/playlist?list=...' },
-  { id: 'soundcloud',    label: 'SoundCloud',    imgSrc: '/music-logos/soundcloud.png',    placeholder: 'https://soundcloud.com/you/sets/...' },
+export const PLATFORMS: { id: MusicPlatform; label: string; imgSrc: string; brandBg: string; placeholder: string }[] = [
+  { id: 'spotify',       label: 'Spotify',       imgSrc: '/music-logos/spotify.jpg',       brandBg: '#1DB954', placeholder: 'https://open.spotify.com/playlist/...' },
+  { id: 'apple_music',   label: 'Apple Music',   imgSrc: '/music-logos/apple-music.png',   brandBg: '#fc3c44', placeholder: 'https://music.apple.com/playlist/...' },
+  { id: 'youtube_music', label: 'YouTube Music', imgSrc: '/music-logos/youtube-music.png', brandBg: '#FF0000', placeholder: 'https://music.youtube.com/playlist?list=...' },
+  { id: 'soundcloud',    label: 'SoundCloud',    imgSrc: '/music-logos/soundcloud.png',    brandBg: '#ff5500', placeholder: 'https://soundcloud.com/you/sets/...' },
 ];
 
 interface ParsedEmbed {
