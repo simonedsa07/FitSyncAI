@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useAuth } from '@/hooks/useAuth';
+import { useUserStore } from '@/store/useUserStore';
 import { useWorkout } from '@/hooks/useWorkout';
 import { WorkoutCard } from '@/components/dashboard/WorkoutCard';
 import { StatsCard } from '@/components/dashboard/StatsCard';
@@ -10,12 +11,17 @@ import { todayLabel, calculateWeeklyCalorieTarget } from '@/lib/utils';
 
 export default function DashboardPage() {
   const { profile } = useAuth();
+  // Subscribe directly to days_per_week so the card re-renders the moment
+  // the user saves Profile Settings — no page reload needed.
+  const daysPerWeek = useUserStore((s) => s.profile?.days_per_week);
   const { plan, completeDay } = useWorkout();
 
   const weekDays = plan?.days ?? [];
   const today = weekDays.find((d) => d.day === todayLabel()) ?? null;
   const completedCount = weekDays.filter((d) => d.completed && !d.is_rest).length;
-  const plannedCount = weekDays.filter((d) => !d.is_rest).length;
+  // Use the profile setting as the authoritative target; fall back to plan days
+  // only when profile hasn't loaded yet.
+  const targetDays = daysPerWeek ?? weekDays.filter((d) => !d.is_rest).length;
   const caloriesBurned = weekDays
     .filter((d) => d.completed)
     .reduce((sum, d) => sum + d.est_calories, 0);
@@ -46,7 +52,7 @@ export default function DashboardPage() {
 
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
         {[
-          <StatsCard key="workouts" icon="↗" label="Workouts · Week" value={completedCount} footer={`of ${plannedCount} planned`} />,
+          <StatsCard key="workouts" icon="↗" label="Workouts · Week" value={completedCount} footer={`of ${targetDays} planned`} />,
           <StatsCard
             key="calories"
             icon="🔥"
