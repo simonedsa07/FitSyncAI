@@ -83,17 +83,11 @@ export function PlaylistCard() {
                 <div className="mb-1 flex items-center justify-between">
                   <span className="flex items-center gap-1.5 text-xs font-semibold text-ink/60">
                     {platformInfo && (
-                      <div
-                        className="flex h-4 w-4 items-center justify-center rounded overflow-hidden flex-shrink-0"
-                        style={{ backgroundColor: platformInfo.brandBg }}
-                      >
-                        <img
-                          src={platformInfo.imgSrc}
-                          alt={platformInfo.label}
-                          className="h-3 w-3 object-contain"
-                          style={platformInfo.id === 'spotify' ? { filter: 'brightness(0) invert(1)' } : undefined}
-                        />
-                      </div>
+                      <img
+                        src={platformInfo.imgSrc}
+                        alt={platformInfo.label}
+                        className="h-4 w-4 rounded object-cover"
+                      />
                     )}
                     {platformInfo?.label}
                   </span>
@@ -134,7 +128,7 @@ export function PlaylistCard() {
       )}
 
       {!adding ? (
-        <div className="mt-5 grid grid-cols-4 gap-3">
+        <div className="mt-5 grid grid-cols-4 gap-2">
           {PLATFORMS.map((p) => (
             <button
               key={p.id}
@@ -142,22 +136,16 @@ export function PlaylistCard() {
                 setAdding(p.id);
                 setError(null);
               }}
-              className="group flex flex-col items-center gap-2 rounded-2xl border border-black/8 bg-white/70 py-3 px-1 shadow-sm transition-all duration-150 hover:-translate-y-1 hover:shadow-md active:scale-95"
+              className="group flex flex-col items-center gap-2 rounded-2xl bg-white/60 py-3 px-1 shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:ring-black/10 active:scale-95"
               title={p.label}
             >
-              {/* Brand-coloured logo tile */}
-              <div
-                className="flex h-10 w-10 items-center justify-center rounded-xl overflow-hidden shadow-sm"
-                style={{ backgroundColor: p.brandBg }}
-              >
-                <img
-                  src={p.imgSrc}
-                  alt={p.label}
-                  className="h-7 w-7 object-contain"
-                  style={p.id === 'spotify' ? { filter: 'brightness(0) invert(1)' } : undefined}
-                />
-              </div>
-              <span className="text-[9px] font-bold uppercase tracking-wide text-ink/50 group-hover:text-ink/80 transition-colors">
+              <img
+                src={p.imgSrc}
+                alt={p.label}
+                className="h-10 w-10 rounded-xl object-cover shadow-sm"
+                draggable={false}
+              />
+              <span className="text-[9px] font-bold uppercase tracking-wide text-ink/50 transition-colors group-hover:text-ink/70">
                 {p.label.split(' ')[0]}
               </span>
             </button>
@@ -169,17 +157,11 @@ export function PlaylistCard() {
             {(() => {
               const p = PLATFORMS.find((pl) => pl.id === adding);
               return p ? (
-                <div
-                  className="flex h-7 w-7 items-center justify-center rounded-lg overflow-hidden shadow-sm flex-shrink-0"
-                  style={{ backgroundColor: p.brandBg }}
-                >
-                  <img
-                    src={p.imgSrc}
-                    alt={p.label}
-                    className="h-5 w-5 object-contain"
-                    style={p.id === 'spotify' ? { filter: 'brightness(0) invert(1)' } : undefined}
-                  />
-                </div>
+                <img
+                  src={p.imgSrc}
+                  alt={p.label}
+                  className="h-6 w-6 rounded-lg object-cover flex-shrink-0"
+                />
               ) : null;
             })()}
             <p className="text-xs font-bold uppercase tracking-wide text-ink/60">
