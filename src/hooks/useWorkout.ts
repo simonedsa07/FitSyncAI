@@ -9,13 +9,15 @@ import { celebrate } from '@/lib/celebrate';
 
 export function useWorkout() {
   const profile = useUserStore((s) => s.profile);
+  const daysPerWeek = useUserStore((s) => s.profile?.days_per_week);
   const { plan, isGenerating, setPlan, setGenerating, markDayComplete: markLocal } =
     useWorkoutStore();
 
   useEffect(() => {
     if (!profile?.id) return;
     fetchCurrentPlan(profile.id).then(setPlan).catch(() => setPlan(null));
-  }, [profile?.id, setPlan]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile?.id, daysPerWeek, setPlan]);
 
   const regenerate = useCallback(
     async (customization?: PlanCustomization) => {

@@ -60,8 +60,12 @@ export function PlaylistCard() {
     <Card className="flex h-full flex-col">
       <div className="mb-4 flex items-start justify-between">
         <p className="text-xs font-bold uppercase tracking-wide text-ink/60">Music</p>
-        <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-ink brutal-card-accent">
-          🎵
+        <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-ink brutal-card-accent overflow-hidden">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M9 18V5l11-2v13" />
+            <circle cx="6" cy="18" r="3" />
+            <circle cx="17" cy="16" r="3" />
+          </svg>
         </div>
       </div>
       <h3 className="font-display text-xl font-extrabold">Your Playlists</h3>
@@ -77,8 +81,11 @@ export function PlaylistCard() {
             return (
               <div key={embed.id}>
                 <div className="mb-1 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-ink/60">
-                    {platformInfo?.icon} {platformInfo?.label}
+                  <span className="flex items-center gap-1.5 text-xs font-semibold text-ink/60">
+                    {platformInfo?.imgSrc && (
+                      <img src={platformInfo.imgSrc} alt={platformInfo.label} className="h-4 w-4 rounded-sm object-cover" />
+                    )}
+                    {platformInfo?.label}
                   </span>
                   <button
                     onClick={() => handleRemove(embed.id)}
@@ -125,19 +132,28 @@ export function PlaylistCard() {
                 setAdding(p.id);
                 setError(null);
               }}
-              className="flex flex-col items-center gap-1 rounded-xl2 border-2 border-ink bg-white py-3 text-xl transition-transform hover:-translate-y-0.5"
+              className="flex flex-col items-center gap-1.5 rounded-xl2 border-2 border-ink bg-white py-3 transition-transform hover:-translate-y-0.5 active:scale-95"
               title={p.label}
             >
-              {p.icon}
+              <img src={p.imgSrc} alt={p.label} className="h-8 w-8 rounded-lg object-cover" />
               <span className="text-[9px] font-bold uppercase text-ink/60">{p.label.split(' ')[0]}</span>
             </button>
           ))}
         </div>
       ) : (
         <form onSubmit={handleAdd} className="mt-4 space-y-2">
-          <p className="text-xs font-bold uppercase tracking-wide text-ink/60">
-            {PLATFORMS.find((p) => p.id === adding)?.icon} {PLATFORMS.find((p) => p.id === adding)?.label}
-          </p>
+          <div className="flex items-center gap-2">
+            {PLATFORMS.find((p) => p.id === adding)?.imgSrc && (
+              <img
+                src={PLATFORMS.find((p) => p.id === adding)!.imgSrc}
+                alt={PLATFORMS.find((p) => p.id === adding)!.label}
+                className="h-6 w-6 rounded-md object-cover"
+              />
+            )}
+            <p className="text-xs font-bold uppercase tracking-wide text-ink/60">
+              {PLATFORMS.find((p) => p.id === adding)?.label}
+            </p>
+          </div>
           <input
             value={urlInput}
             onChange={(e) => setUrlInput(e.target.value)}

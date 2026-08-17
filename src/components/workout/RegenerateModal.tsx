@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -26,6 +26,13 @@ export function RegenerateModal({ open, onClose, onSubmit, currentDaysPerWeek }:
   const [focusMuscles, setFocusMuscles] = useState<string[]>([]);
   const [days, setDays] = useState(String(currentDaysPerWeek ?? 4));
   const [notes, setNotes] = useState('');
+
+  // Keep days in sync whenever the profile's days_per_week changes
+  useEffect(() => {
+    if (currentDaysPerWeek != null) {
+      setDays(String(currentDaysPerWeek));
+    }
+  }, [currentDaysPerWeek]);
 
   function toggleMuscle(m: string) {
     setFocusMuscles((prev) => (prev.includes(m) ? prev.filter((x) => x !== m) : [...prev, m]));
