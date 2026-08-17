@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/hooks/useAuth';
+import { useUserStore } from '@/store/useUserStore';
 import { supabase } from '@/lib/supabaseClient';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
@@ -12,6 +13,7 @@ import type { ActivityLevel, Gender, Goal } from '@/types/user';
 
 export default function ProfilePage() {
   const { profile } = useAuth();
+  const { updateProfile } = useUserStore();
 
   const [form, setForm] = useState({
     age: '',
@@ -69,6 +71,17 @@ export default function ProfilePage() {
         alert('Could not save profile: ' + error.message);
         return;
       }
+
+      // Sync the global store so every page reflects the new values immediately
+      updateProfile({
+        age: Number(form.age),
+        gender: form.gender,
+        height_cm: Number(form.height),
+        weight_kg: Number(form.weight),
+        goal: form.goal,
+        activity_level: form.activity,
+        days_per_week: Number(form.days),
+      });
 
       setSaved(true);
     } finally {
