@@ -5,7 +5,7 @@ import { CountUp } from '@/components/ui/CountUp';
 interface StatsCardProps {
   icon: ReactNode;
   label: string;
-  value: number | string;
+  value: number | string | ReactNode;
   suffix?: string;
   footer?: ReactNode;
 }

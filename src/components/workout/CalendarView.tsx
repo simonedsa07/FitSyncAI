@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { WorkoutPlan } from '@/types/workout';
 import { DayCard } from './DayCard';
-import { todayLabel } from '@/lib/utils';
+import { todayLabel, cn } from '@/lib/utils';
 
 interface CalendarViewProps {
   plan: WorkoutPlan;
@@ -24,22 +24,28 @@ export function CalendarView({ plan, onComplete }: CalendarViewProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-2">
-      {days.map((day, i) => (
-        <motion.div
-          key={day.day}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, delay: i * 0.06, ease: [0.21, 0.47, 0.32, 0.98] }}
-        >
-          <DayCard
-            day={day}
-            open={openDay === day.day}
-            onToggle={() => setOpenDay((prev) => (prev === day.day ? null : day.day))}
-            onComplete={onComplete}
-          />
-        </motion.div>
-      ))}
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 auto-rows-max items-start">
+      {days.map((day, i) => {
+        const isOpen = openDay === day.day;
+        return (
+          <motion.div
+            key={day.day}
+            layout
+            transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+            className={cn(
+              'transition-all duration-300',
+              isOpen ? 'md:col-span-2 md:row-span-2' : 'col-span-1'
+            )}
+          >
+            <DayCard
+              day={day}
+              open={isOpen}
+              onToggle={() => setOpenDay((prev) => (prev === day.day ? null : day.day))}
+              onComplete={onComplete}
+            />
+          </motion.div>
+        );
+      })}
     </div>
   );
 }

@@ -39,10 +39,26 @@
 }
 
 html,
+body,
+div,
+span,
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+select,
+svg {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+html,
 body {
   background-color: var(--page-bg);
   color: var(--text-main);
-  transition: background-color 0.2s ease;
 }
 
 body {
@@ -61,16 +77,16 @@ h1, h2, h3, h4, .font-display {
 /* Reusable neubrutalist primitives */
 @layer components {
   .brutal-card {
-    @apply bg-white border-2 border-ink rounded-card shadow-brutal;
+    @apply bg-white border-2 border-ink rounded-card transition-all duration-150 hover:-translate-y-0.5;
   }
 
   .brutal-card-accent {
-    @apply border-2 border-ink rounded-card shadow-brutal;
+    @apply border-2 border-ink rounded-card transition-all duration-150 hover:-translate-y-0.5;
     background-color: var(--accent);
   }
 
   .brutal-input {
-    @apply w-full border-2 border-ink rounded-xl2 px-4 py-3 text-ink bg-white outline-none transition-colors;
+    @apply w-full border-2 border-ink rounded-xl2 px-4 py-3 text-ink bg-white outline-none transition-all duration-150;
   }
   .brutal-input::placeholder {
     color: var(--text-muted);
@@ -82,17 +98,17 @@ h1, h2, h3, h4, .font-display {
   }
 
   .btn-pill {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink px-6 py-3 font-semibold transition-transform active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink px-6 py-3 font-semibold transition-all duration-150 active:scale-[0.96] disabled:opacity-50 disabled:pointer-events-none;
   }
 
   .btn-pill-accent {
-    @apply btn-pill shadow-brutal-sm hover:-translate-y-0.5;
+    @apply btn-pill hover:-translate-y-0.5;
     background-color: var(--accent);
     color: var(--accent-dark);
   }
 
   .btn-pill-dark {
-    @apply btn-pill shadow-brutal-sm hover:-translate-y-0.5 bg-ink text-white;
+    @apply btn-pill hover:-translate-y-0.5 bg-ink text-white;
   }
 
   .btn-pill-ghost {
@@ -100,7 +116,7 @@ h1, h2, h3, h4, .font-display {
   }
 
   .chip {
-    @apply rounded-full border-2 border-ink px-5 py-2.5 font-semibold text-sm transition-colors;
+    @apply rounded-full border-2 border-ink px-5 py-2.5 font-semibold text-sm transition-all duration-150 active:scale-[0.96];
   }
 
   .chip-active {
@@ -108,18 +124,18 @@ h1, h2, h3, h4, .font-display {
   }
 
   .nav-pill {
-  @apply rounded-full border-2 border-transparent px-4 py-2 font-semibold text-sm text-ink/70 transition-all;
-}
+    @apply rounded-full border-2 border-transparent px-4 py-2 font-semibold text-sm text-ink/70 transition-all duration-150;
+  }
 
-.nav-pill:hover {
-  @apply -translate-y-0.5 border-ink text-ink shadow-brutal-sm;
-  background-color: color-mix(in srgb, var(--accent) 45%, white);
-}
+  .nav-pill:hover {
+    @apply -translate-y-0.5 border-ink text-ink;
+    background-color: color-mix(in srgb, var(--accent) 45%, white);
+  }
 
-.nav-pill-active {
-  @apply -translate-y-0.5 text-ink border-2 border-ink shadow-brutal-sm;
-  background-color: var(--accent);
-}
+  .nav-pill-active {
+    @apply -translate-y-0.5 text-ink border-2 border-ink;
+    background-color: var(--accent);
+  }
 }
 
 /* Simple scrollbar */

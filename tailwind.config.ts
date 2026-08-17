@@ -23,8 +23,8 @@ const config: Config = {
         body: ['var(--font-body)', 'sans-serif'],
       },
       borderRadius: {
-        xl2: '20px',
-        card: '24px',
+        xl2: '12px',
+        card: '16px',
       },
       boxShadow: {
         brutal: '5px 5px 0px 0px rgba(17,17,17,1)',
