@@ -13,6 +13,11 @@ interface DayCardProps {
 }
 
 export function DayCard({ day, open, onToggle, onComplete }: DayCardProps) {
+  // Derived summary stats
+  const totalExercises = day.exercises?.length ?? 0;
+  const totalSets = day.exercises?.reduce((acc, ex) => acc + (ex.sets ?? 1), 0) ?? 0;
+  const estMinutes = Math.round(totalExercises * 4.5); // ~4.5 min per exercise avg
+
   return (
     <div
       className={cn(
@@ -55,6 +60,16 @@ export function DayCard({ day, open, onToggle, onComplete }: DayCardProps) {
               {day.exercises.map((ex) => (
                 <ExerciseItem key={ex.id} exercise={ex} />
               ))}
+
+              {/* ── Summary footer ── */}
+              {totalExercises > 0 && (
+                <div className="flex items-center justify-between rounded-xl2 border-2 border-ink/20 bg-white/60 px-4 py-2.5 text-xs font-semibold text-ink/60">
+                  <span>📋 {totalExercises} exercises</span>
+                  <span>⟳ {totalSets} sets total</span>
+                  <span>⏱ ~{estMinutes} min</span>
+                </div>
+              )}
+
               <Button
                 variant="dark"
                 className="w-full"
@@ -69,4 +84,4 @@ export function DayCard({ day, open, onToggle, onComplete }: DayCardProps) {
       )}
     </div>
   );
-}
+}

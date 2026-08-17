@@ -48,7 +48,7 @@ export function WorkoutCard({ day, onMarkDone }: WorkoutCardProps) {
             {day.exercises.length} exercises · ~{day.est_calories} cal · {day.difficulty}
           </p>
         </div>
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border-2 border-ink bg-white text-ink">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl2 border-2 border-ink bg-white text-ink">
   <LogoMark size={22} />
 </div>
       </div>

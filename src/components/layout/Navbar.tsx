@@ -55,7 +55,7 @@ export function Navbar() {
           <motion.div
             whileHover={{ rotate: -8, scale: 1.08 }}
             transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-            className="flex h-9 w-9 items-center justify-center rounded-xl border-2 border-ink brutal-card-accent text-ink"
+            className="flex h-9 w-9 items-center justify-center rounded-xl2 border-2 border-ink brutal-card-accent text-ink"
           >
             <LogoMark size={20} />
           </motion.div>

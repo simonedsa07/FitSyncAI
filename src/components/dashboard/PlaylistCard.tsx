@@ -142,7 +142,7 @@ export function PlaylistCard() {
               <img
                 src={p.imgSrc}
                 alt={p.label}
-                className="h-10 w-10 rounded-xl object-cover shadow-sm"
+                className="h-10 w-10 rounded-xl2 object-cover shadow-sm"
                 draggable={false}
               />
               <span className="text-[9px] font-bold uppercase tracking-wide text-ink/50 transition-colors group-hover:text-ink/70">
@@ -160,7 +160,7 @@ export function PlaylistCard() {
                 <img
                   src={p.imgSrc}
                   alt={p.label}
-                  className="h-6 w-6 rounded-lg object-cover flex-shrink-0"
+                  className="h-6 w-6 rounded-xl2 object-cover flex-shrink-0"
                 />
               ) : null;
             })()}

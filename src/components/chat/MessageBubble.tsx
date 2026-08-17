@@ -11,7 +11,7 @@ export function MessageBubble({ role, content }: { role: 'user' | 'assistant'; c
     <div className={cn('flex', isUser ? 'justify-end' : 'justify-start')}>
       <div
         className={cn(
-          'max-w-[85%] rounded-2xl border-2 border-ink px-4 py-3 text-sm',
+          'max-w-[85%] rounded-xl2 border-2 border-ink px-4 py-3 text-sm',
           isUser ? 'bg-ink text-white' : 'brutal-card-accent'
         )}
       >
