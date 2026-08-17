@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { WorkoutDay } from '@/types/workout';
 import Link from 'next/link';
 import { LogoMark } from '@/components/layout/LogoMark';
+import { cn } from '@/lib/utils';
 
 interface WorkoutCardProps {
   day: WorkoutDay | null;
@@ -66,7 +67,15 @@ export function WorkoutCard({ day, onMarkDone }: WorkoutCardProps) {
         <Link href="/workout">
           <Button variant="ghost">View full plan</Button>
         </Link>
-        <Button variant="dark" onClick={onMarkDone} disabled={day.completed}>
+        <Button
+          variant={day.completed ? 'ghost' : 'accent'}
+          onClick={onMarkDone}
+          disabled={day.completed}
+          className={cn(
+            'transition-colors',
+            day.completed && 'bg-teal hover:bg-teal text-white border-2 border-ink shadow-brutal-sm opacity-100 cursor-default'
+          )}
+        >
           {day.completed ? 'Done ✓' : '⊙ Mark done'}
         </Button>
       </div>

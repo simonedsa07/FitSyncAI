@@ -33,7 +33,7 @@ export default function ForgotPasswordPage() {
       <h1 className="font-display text-3xl font-extrabold text-center">Reset Password</h1>
       <Card>
         {status === 'success' ? (
-          <p className="text-emerald-600 font-semibold text-center">
+          <p className="text-teal font-semibold text-center">
             Check your email for the reset link!
           </p>
         ) : (

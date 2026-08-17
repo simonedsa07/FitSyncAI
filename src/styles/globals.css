@@ -4,34 +4,34 @@
 
 :root,
 [data-theme='pastel-pink'] {
-  --accent: #F7D6D8;          /* Dusty Rose Pink */
-  --accent-light: #FDF1F2;
-  --accent-dark: #33312B;
-  --page-bg: #FCFBF7;
-  --bg-main: #FCFBF7;         /* Warm Off-White */
-  --text-main: #33312B;       /* Soft Dark Espresso */
-  --text-muted: #6E6B64;      /* Earthy Slate */
+  --accent: #D85A30;          /* Coral Accent */
+  --accent-light: #FAF0EB;    /* Light Coral */
+  --accent-dark: #33312B;     /* Soft Dark Espresso */
+  --page-bg: #FCFBF7;         /* Warm Off-White Cream */
+  --bg-main: #FCFBF7;
+  --text-main: #33312B;
+  --text-muted: #6E6B64;
 }
 
 [data-theme='butter-yellow'] {
-  --accent: #FFF9E6;          /* Rich Creamy Butter */
+  --accent: #D85A30;          /* Coral Accent */
   --accent-light: #FFFDF5;
   --accent-dark: #33312B;
-  --page-bg: #FCFBF7;
+  --page-bg: #FFFDF0;         /* Butter Yellow Cream Page Bg */
 }
 
 [data-theme='subtle-green'] {
-  --accent: #E2E7DF;          /* Soft Sage / Eucalyptus */
+  --accent: #D85A30;          /* Coral Accent */
   --accent-light: #F2F4F1;
   --accent-dark: #33312B;
-  --page-bg: #FCFBF7;
+  --page-bg: #F5F7F4;         /* Soft Sage Green Page Bg */
 }
 
 [data-theme='pastel-purple'] {
-  --accent: #E3DCEC;          /* Pale Mist Lavender */
+  --accent: #D85A30;          /* Coral Accent */
   --accent-light: #F3F1F7;
   --accent-dark: #33312B;
-  --page-bg: #FCFBF7;
+  --page-bg: #F7F5FA;         /* Soft Purple Page Bg */
 }
 
 * {
@@ -136,12 +136,13 @@ h1, h2, h3, h4, .font-display {
 }
 /* ---------- Dark mode overrides (scoped to the logged-in app only) ---------- */
 .dark {
-  --page-bg: #1C1A17;
-  --bg-main: #1C1A17;
-  --text-main: #F5F4F0;
-  --text-muted: #A3A199;
-  --accent-light: rgba(255, 255, 255, 0.08);
-  --accent-dark: #F5F4F0;
+  --page-bg: #161512;         /* Not pure black */
+  --bg-main: #161512;
+  --text-main: #F5E6C8;       /* Cream text */
+  --text-muted: #A8A396;      /* Muted cream */
+  --accent: #D85A30;          /* Coral Accent */
+  --accent-light: rgba(216, 90, 48, 0.15);
+  --accent-dark: #F5E6C8;
 }
 
 .dark body {
@@ -149,11 +150,11 @@ h1, h2, h3, h4, .font-display {
 }
 
 .dark .bg-white {
-  background-color: #292723;
+  background-color: #22201C;  /* Warm dark brown-gray card background */
 }
 
 .dark .bg-white\/90 {
-  background-color: rgba(41, 39, 35, 0.9) !important;
+  background-color: rgba(34, 32, 28, 0.9) !important;
 }
 
 .dark .border-ink {
@@ -161,52 +162,52 @@ h1, h2, h3, h4, .font-display {
 }
 
 .dark .shadow-brutal {
-  box-shadow: 5px 5px 0px 0px rgba(245, 244, 240, 0.18);
+  box-shadow: 5px 5px 0px 0px rgba(245, 230, 200, 0.18);
 }
 .dark .shadow-brutal-sm {
-  box-shadow: 3px 3px 0px 0px rgba(245, 244, 240, 0.18);
+  box-shadow: 3px 3px 0px 0px rgba(245, 230, 200, 0.18);
 }
 .dark .shadow-brutal-lg {
-  box-shadow: 8px 8px 0px 0px rgba(245, 244, 240, 0.18);
+  box-shadow: 8px 8px 0px 0px rgba(245, 230, 200, 0.18);
 }
 
 .dark .text-ink {
   color: var(--text-main);
 }
 .dark .text-ink\/80 {
-  color: rgba(245, 244, 240, 0.85);
+  color: rgba(245, 230, 200, 0.85);
 }
 .dark .text-ink\/70 {
-  color: rgba(245, 244, 240, 0.72);
+  color: rgba(245, 230, 200, 0.72);
 }
 .dark .text-ink\/60 {
-  color: rgba(245, 244, 240, 0.62);
+  color: rgba(245, 230, 200, 0.62);
 }
 .dark .text-ink\/50 {
-  color: rgba(245, 244, 240, 0.52);
+  color: rgba(245, 230, 200, 0.52);
 }
 .dark .text-ink\/40 {
-  color: rgba(245, 244, 240, 0.42);
+  color: rgba(245, 230, 200, 0.42);
 }
 
 .dark .brutal-card,
 .dark .brutal-input,
 .dark .btn-pill-ghost,
 .dark .chip {
-  background-color: #292723;
+  background-color: #22201C;
   border-color: var(--text-main);
-  box-shadow: 5px 5px 0px 0px rgba(245, 244, 240, 0.18);
+  box-shadow: 5px 5px 0px 0px rgba(245, 230, 200, 0.18);
 }
 
 .dark .btn-pill-ghost:hover {
-  background-color: rgba(245, 244, 240, 0.08);
+  background-color: rgba(245, 230, 200, 0.08);
 }
 
 .dark .brutal-card-accent,
 .dark .nav-pill-active,
 .dark .chip-active {
   border-color: var(--text-main);
-  box-shadow: 5px 5px 0px 0px rgba(245, 244, 240, 0.18);
+  box-shadow: 5px 5px 0px 0px rgba(245, 230, 200, 0.18);
 }
 /* ---------- Chat markdown formatting ---------- */
 .prose-chat p {

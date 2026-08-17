@@ -13,6 +13,10 @@ const config: Config = {
         'accent-light': 'var(--accent-light)',
         'accent-dark': 'var(--accent-dark)',
         page: 'var(--page-bg)',
+        coral: '#D85A30',
+        teal: '#1D9E75',
+        blue: '#378ADD',
+        purple: '#7F77DD',
       },
       fontFamily: {
         display: ['var(--font-display)', 'sans-serif'],

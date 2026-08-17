@@ -200,7 +200,7 @@ export default function ProgressPage() {
                   <Line
                     type="monotone"
                     dataKey="weight"
-                    stroke="var(--accent)"
+                    stroke="#378ADD"
                     strokeWidth={3}
                     dot={{ r: 5, stroke: '#14121A', strokeWidth: 2 }}
                   />
@@ -209,7 +209,7 @@ export default function ProgressPage() {
             )}
           </Card>
         </motion.div>
-
+ 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -225,7 +225,7 @@ export default function ProgressPage() {
                 <XAxis dataKey="day" tick={{ fontSize: 12 }} />
                 <YAxis tick={{ fontSize: 12 }} allowDecimals={false} />
                 <Tooltip />
-                <Bar dataKey="count" fill="var(--accent)" stroke="#14121A" strokeWidth={2} radius={[6, 6, 0, 0]} />
+                <Bar dataKey="count" fill="#378ADD" stroke="#14121A" strokeWidth={2} radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </Card>
