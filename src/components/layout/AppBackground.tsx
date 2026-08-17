@@ -1,27 +1,43 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
 export function AppBackground() {
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <motion.div
-        className="absolute h-96 w-96 rounded-full"
-        style={{ background: 'var(--accent)', filter: 'blur(90px)', opacity: 0.18, top: '-10%', left: '-10%' }}
-        animate={{ x: [0, 40, -20, 0], y: [0, -30, 20, 0], scale: [1, 1.1, 0.95, 1] }}
-        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+    <div className="pointer-events-none fixed inset-0 -z-50 overflow-hidden">
+      {/* Blob 1: Sunset Coral (#E8734A) */}
+      <div
+        className="absolute h-96 w-96 rounded-full animate-blob-1"
+        style={{
+          background: '#E8734A',
+          filter: 'blur(95px)',
+          opacity: 'var(--blob-opacity-1, 0.18)',
+          top: '-10%',
+          left: '-10%',
+          willChange: 'transform',
+        }}
       />
-      <motion.div
-        className="absolute h-[420px] w-[420px] rounded-full"
-        style={{ background: 'var(--accent)', filter: 'blur(100px)', opacity: 0.14, top: '40%', right: '-15%' }}
-        animate={{ x: [0, -30, 20, 0], y: [0, 30, -20, 0], scale: [1, 0.9, 1.1, 1] }}
-        transition={{ duration: 28, repeat: Infinity, ease: 'easeInOut' }}
+      {/* Blob 2: Dreamy Lavender (#9B8CF0) */}
+      <div
+        className="absolute h-[420px] w-[420px] rounded-full animate-blob-2"
+        style={{
+          background: '#9B8CF0',
+          filter: 'blur(100px)',
+          opacity: 'var(--blob-opacity-2, 0.15)',
+          top: '40%',
+          right: '-15%',
+          willChange: 'transform',
+        }}
       />
-      <motion.div
-        className="absolute h-80 w-80 rounded-full"
-        style={{ background: 'var(--accent)', filter: 'blur(80px)', opacity: 0.12, bottom: '-10%', left: '25%' }}
-        animate={{ x: [0, 25, -25, 0], y: [0, -20, 15, 0] }}
-        transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
+      {/* Blob 3: Mint Spark (#2BB893) */}
+      <div
+        className="absolute h-80 w-80 rounded-full animate-blob-3"
+        style={{
+          background: '#2BB893',
+          filter: 'blur(80px)',
+          opacity: 'var(--blob-opacity-3, 0.12)',
+          bottom: '-10%',
+          left: '25%',
+          willChange: 'transform',
+        }}
       />
     </div>
   );

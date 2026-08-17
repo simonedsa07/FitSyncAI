@@ -7,10 +7,10 @@ export interface ThemeDefinition {
 }
 
 export const THEMES: ThemeDefinition[] = [
-  { id: 'pastel-pink', label: 'Pastel Pink', swatch: '#F7D6D8' },
-  { id: 'butter-yellow', label: 'Butter Yellow', swatch: '#FFF9E6' },
-  { id: 'subtle-green', label: 'Subtle Green', swatch: '#E2E7DF' },
-  { id: 'pastel-purple', label: 'Pastel Purple', swatch: '#E3DCEC' },
+  { id: 'pastel-pink', label: 'Sunset Coral', swatch: '#E8734A' },
+  { id: 'butter-yellow', label: 'Dreamy Lavender', swatch: '#9B8CF0' },
+  { id: 'subtle-green', label: 'Mint Spark', swatch: '#2BB893' },
+  { id: 'pastel-purple', label: 'Sky Focus', swatch: '#4A9FE8' },
 ];
 
 export const DEFAULT_THEME: ThemeName = 'pastel-pink';

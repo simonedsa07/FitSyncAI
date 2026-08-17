@@ -114,7 +114,7 @@ export function RegenerateModal({ open, onClose, onSubmit, currentDaysPerWeek }:
         <Button variant="ghost" onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="dark" onClick={handleSubmit}>
+        <Button variant="accent" onClick={handleSubmit}>
           Generate plan
         </Button>
       </div>

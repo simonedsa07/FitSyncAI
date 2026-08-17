@@ -54,8 +54,8 @@ export function ChatBox() {
               transition={{ duration: 0.2 }}
               className="mb-3 overflow-hidden rounded-card border-2 border-ink bg-white"
             >
-              <div className="flex items-center justify-between border-b-2 border-ink bg-[#7F77DD]/10 px-4 py-2">
-                <p className="text-xs font-bold uppercase tracking-wide text-ink/70">FitSync AI</p>
+              <div className="flex items-center justify-between border-b-2 border-ink bg-[#9B8CF0]/20 px-4 py-2">
+                <p className="text-xs font-bold uppercase tracking-wide text-ink">FitSync AI</p>
                 <button
                   onClick={handleClose}
                   aria-label="Close chat"
@@ -77,13 +77,13 @@ export function ChatBox() {
  
         {/* ── Input bar ── */}
         <div className="relative pt-3">
-          <span className="absolute left-7 top-0 z-10 rounded-full border border-ink bg-[#7F77DD] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white shadow-sm">
+          <span className="absolute left-7 top-0 z-10 rounded-full border-2 border-ink bg-[#9B8CF0] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-ink shadow-sm">
             FitSync AI
           </span>
           <div className="flex h-16 items-center gap-4 rounded-full border-2 border-ink bg-white pl-3 pr-3">
             <button
               onClick={() => messages.length > 0 && setExpanded((v) => !v)}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-ink bg-[#7F77DD] text-white hover:-translate-y-0.5 active:translate-y-0 transition-all"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-ink bg-[#9B8CF0] text-ink hover:-translate-y-0.5 active:translate-y-0 transition-all"
               aria-label="Toggle chat history"
             >
               💬

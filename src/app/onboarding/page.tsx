@@ -9,6 +9,8 @@ import { cn, calcBmi } from '@/lib/utils';
 import { GOAL_OPTIONS as GOALS, ACTIVITY_OPTIONS as ACTIVITY } from '@/lib/options';
 import type { ActivityLevel, Gender, Goal } from '@/types/user';
 import { GeneratingOverlay } from '@/components/workout/GeneratingOverlay';
+import { AppBackground } from '@/components/layout/AppBackground';
+import { DarkModeToggle } from '@/components/layout/DarkModeToggle';
 
 interface FormState {
   name: string;
@@ -95,7 +97,12 @@ export default function OnboardingPage() {
   const bmi = calcBmi(Number(form.height) || null, Number(form.weight) || null);
 
   return (
-<div data-force-light className="flex min-h-screen items-center justify-center px-4 py-10">      <div className="w-full max-w-md brutal-card p-8">
+    <div className="relative flex min-h-screen items-center justify-center px-4 py-10 overflow-hidden text-ink">
+      <AppBackground />
+      <div className="relative z-10 w-full max-w-md brutal-card p-8">
+        <div className="absolute right-4 top-4 z-20">
+          <DarkModeToggle />
+        </div>
         <p className="mb-1 text-xs font-bold uppercase tracking-wide text-ink/50">
           Step {step} of {TOTAL_STEPS}
         </p>

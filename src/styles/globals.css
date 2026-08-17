@@ -4,34 +4,44 @@
 
 :root,
 [data-theme='pastel-pink'] {
-  --accent: #D85A30;          /* Coral Accent */
-  --accent-light: #FAF0EB;    /* Light Coral */
-  --accent-dark: #33312B;     /* Soft Dark Espresso */
-  --page-bg: #FCFBF7;         /* Warm Off-White Cream */
-  --bg-main: #FCFBF7;
-  --text-main: #33312B;
-  --text-muted: #6E6B64;
+  --accent: #E8734A;          /* Sunset Coral */
+  --accent-light: rgba(232, 115, 74, 0.12);
+  --accent-dark: #2C2C2A;     /* Charcoal/Warm Black */
+  --page-bg: #F5E6C8;         /* Cream page background */
+  --bg-main: #F5E6C8;
+  --text-main: #2C2C2A;
+  --text-muted: #6B6B69;
+  --blob-opacity-1: 0.20;
+  --blob-opacity-2: 0.18;
+  --blob-opacity-3: 0.15;
+
+  /* Semantic Palette Colors */
+  --color-coral: #E8734A;     /* Primary CTAs, "Mark Done" */
+  --color-lavender: #9B8CF0;  /* FitSync AI chat & AI content */
+  --color-mint: #2BB893;      /* Completed states, positive trends */
+  --color-sky: #4A9FE8;       /* Chart lines & data visualization */
+  --color-pink: #F2679B;      /* Streak counters & gamification badges */
 }
 
 [data-theme='butter-yellow'] {
-  --accent: #D85A30;          /* Coral Accent */
-  --accent-light: #FFFDF5;
-  --accent-dark: #33312B;
-  --page-bg: #FFFDF0;         /* Butter Yellow Cream Page Bg */
+  --accent: #9B8CF0;          /* Dreamy Lavender CTA */
+  --accent-light: rgba(155, 140, 240, 0.15);
+  --accent-dark: #2C2C2A;
+  --page-bg: #F5E6C8;
 }
 
 [data-theme='subtle-green'] {
-  --accent: #D85A30;          /* Coral Accent */
-  --accent-light: #F2F4F1;
-  --accent-dark: #33312B;
-  --page-bg: #F5F7F4;         /* Soft Sage Green Page Bg */
+  --accent: #2BB893;          /* Mint Spark CTA */
+  --accent-light: rgba(43, 184, 147, 0.15);
+  --accent-dark: #2C2C2A;
+  --page-bg: #F5E6C8;
 }
 
 [data-theme='pastel-purple'] {
-  --accent: #D85A30;          /* Coral Accent */
-  --accent-light: #F3F1F7;
-  --accent-dark: #33312B;
-  --page-bg: #F7F5FA;         /* Soft Purple Page Bg */
+  --accent: #4A9FE8;          /* Sky Focus CTA */
+  --accent-light: rgba(74, 159, 232, 0.15);
+  --accent-dark: #2C2C2A;
+  --page-bg: #F5E6C8;
 }
 
 * {
@@ -103,8 +113,8 @@ h1, h2, h3, h4, .font-display {
 
   .btn-pill-accent {
     @apply btn-pill hover:-translate-y-0.5;
-    background-color: var(--accent);
-    color: var(--accent-dark);
+    background-color: var(--color-coral);
+    color: #FFFFFF;
   }
 
   .btn-pill-dark {
@@ -150,31 +160,36 @@ h1, h2, h3, h4, .font-display {
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-/* ---------- Dark mode overrides (scoped to the logged-in app only) ---------- */
+/* ---------- Dark mode overrides (site-wide plum-black theme) ---------- */
 .dark {
-  --page-bg: #161512;         /* Not pure black */
-  --bg-main: #161512;
+  --page-bg: #1A1625;         /* Warm Plum-Black background */
+  --bg-main: #1A1625;
   --text-main: #F5E6C8;       /* Cream text */
-  --text-muted: #A8A396;      /* Muted cream */
-  --accent: #D85A30;          /* Coral Accent */
-  --accent-light: rgba(216, 90, 48, 0.15);
+  --text-muted: #A8A396;
+  --accent-light: rgba(232, 115, 74, 0.20);
   --accent-dark: #F5E6C8;
+  --blob-opacity-1: 0.14;
+  --blob-opacity-2: 0.12;
+  --blob-opacity-3: 0.10;
 }
 
 .dark body {
   color: var(--text-main);
+  background-color: var(--page-bg);
 }
 
 .dark .bg-white {
-  background-color: #22201C;  /* Warm dark brown-gray card background */
+  background-color: #252033 !important;  /* Warm Plum-Gray card background */
 }
 
 .dark .bg-white\/90 {
-  background-color: rgba(34, 32, 28, 0.9) !important;
+  background-color: rgba(37, 32, 51, 0.9) !important;
 }
 
-.dark .border-ink {
-  border-color: var(--text-main);
+.dark .border-ink,
+.dark .border-2,
+.dark [class*="border-ink"] {
+  border-color: rgba(245, 230, 200, 0.25) !important;
 }
 
 .dark .shadow-brutal {
@@ -188,43 +203,44 @@ h1, h2, h3, h4, .font-display {
 }
 
 .dark .text-ink {
-  color: var(--text-main);
+  color: var(--text-main) !important;
 }
 .dark .text-ink\/80 {
-  color: rgba(245, 230, 200, 0.85);
+  color: rgba(245, 230, 200, 0.85) !important;
 }
 .dark .text-ink\/70 {
-  color: rgba(245, 230, 200, 0.72);
+  color: rgba(245, 230, 200, 0.72) !important;
 }
 .dark .text-ink\/60 {
-  color: rgba(245, 230, 200, 0.62);
+  color: rgba(245, 230, 200, 0.62) !important;
 }
 .dark .text-ink\/50 {
-  color: rgba(245, 230, 200, 0.52);
+  color: rgba(245, 230, 200, 0.52) !important;
 }
 .dark .text-ink\/40 {
-  color: rgba(245, 230, 200, 0.42);
+  color: rgba(245, 230, 200, 0.42) !important;
 }
 
 .dark .brutal-card,
 .dark .brutal-input,
 .dark .btn-pill-ghost,
 .dark .chip {
-  background-color: #22201C;
-  border-color: var(--text-main);
-  box-shadow: 5px 5px 0px 0px rgba(245, 230, 200, 0.18);
+  background-color: #252033 !important;
+  border-color: rgba(245, 230, 200, 0.25) !important;
+  box-shadow: none;
 }
 
 .dark .btn-pill-ghost:hover {
-  background-color: rgba(245, 230, 200, 0.08);
+  background-color: rgba(245, 230, 200, 0.08) !important;
 }
 
 .dark .brutal-card-accent,
 .dark .nav-pill-active,
 .dark .chip-active {
-  border-color: var(--text-main);
-  box-shadow: 5px 5px 0px 0px rgba(245, 230, 200, 0.18);
+  border-color: rgba(245, 230, 200, 0.25) !important;
+  box-shadow: none;
 }
+
 /* ---------- Chat markdown formatting ---------- */
 .prose-chat p {
   margin: 0 0 0.5rem 0;
@@ -250,7 +266,7 @@ h1, h2, h3, h4, .font-display {
   font-weight: 800;
 }
 .prose-chat code {
-  background: rgba(51, 49, 43, 0.1);
+  background: rgba(245, 230, 200, 0.15);
   padding: 0.1rem 0.35rem;
   border-radius: 4px;
   font-size: 0.85em;
@@ -259,43 +275,13 @@ h1, h2, h3, h4, .font-display {
   text-decoration: underline;
   font-weight: 600;
 }
+
 /* ---------- Landing page marquee ---------- */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-33.333%); }
 }
-/* These surfaces (auth, onboarding, marketing landing) always stay light,
-   regardless of the app's dark mode toggle. */
-[data-force-light] {
-  color-scheme: light;
-}
-[data-force-light] .bg-white { background-color: #ffffff !important; }
-[data-force-light] .border-ink { border-color: #33312B !important; }
-[data-force-light] .text-ink { color: #33312B !important; }
-[data-force-light] .text-ink\/80 { color: rgba(51,49,43,0.85) !important; }
-[data-force-light] .text-ink\/70 { color: rgba(51,49,43,0.72) !important; }
-[data-force-light] .text-ink\/60 { color: rgba(51,49,43,0.62) !important; }
-[data-force-light] .text-ink\/50 { color: rgba(51,49,43,0.52) !important; }
-[data-force-light] .text-ink\/40 { color: rgba(51,49,43,0.42) !important; }
-[data-force-light] .shadow-brutal { box-shadow: 5px 5px 0px 0px rgba(51,49,43,1) !important; }
-[data-force-light] .shadow-brutal-sm { box-shadow: 3px 3px 0px 0px rgba(51,49,43,1) !important; }
-[data-force-light] .shadow-brutal-lg { box-shadow: 8px 8px 0px 0px rgba(51,49,43,1) !important; }
-[data-force-light] .brutal-card,
-[data-force-light] .brutal-input,
-[data-force-light] .btn-pill-ghost,
-[data-force-light] .chip {
-  background-color: #ffffff !important;
-  border-color: #33312B !important;
-  box-shadow: 5px 5px 0px 0px rgba(51,49,43,1) !important;
-}
-[data-force-light] .brutal-card-accent,
-[data-force-light] .nav-pill-active,
-[data-force-light] .chip-active {
-  background-color: var(--accent) !important;
-  border-color: #33312B !important;
-  box-shadow: 5px 5px 0px 0px rgba(51,49,43,1) !important;
-}
-[data-force-light] body { color: #33312B !important; }
+
 /* ---------- Button shine sweep ---------- */
 .btn-pill-accent,
 .btn-pill-dark {
@@ -318,3 +304,36 @@ h1, h2, h3, h4, .font-display {
 .btn-pill-dark:hover::after {
   left: 130%;
 }
+
+/* ---------- Drifting Background Blobs Animations ---------- */
+@keyframes float-blob-1 {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(45px, -65px) scale(1.12); }
+  66% { transform: translate(-35px, 35px) scale(0.92); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes float-blob-2 {
+  0% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(-55px, 55px) scale(0.88); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes float-blob-3 {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(-35px, -45px) scale(1.1); }
+  66% { transform: translate(45px, 25px) scale(0.95); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-blob-1 {
+  animation: float-blob-1 20s ease-in-out infinite;
+}
+
+.animate-blob-2 {
+  animation: float-blob-2 24s ease-in-out infinite;
+}
+
+.animate-blob-3 {
+  animation: float-blob-3 22s ease-in-out infinite;
+}

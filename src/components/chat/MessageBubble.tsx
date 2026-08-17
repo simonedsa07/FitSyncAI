@@ -11,14 +11,14 @@ export function MessageBubble({ role, content }: { role: 'user' | 'assistant'; c
     <div className={cn('flex', isUser ? 'justify-end' : 'justify-start')}>
       <div
         className={cn(
-          'max-w-[85%] rounded-xl2 border-2 border-ink px-4 py-3 text-sm',
-          isUser ? 'bg-ink text-white' : 'bg-purple text-white shadow-brutal-sm'
+          'max-w-[85%] rounded-xl2 border-2 border-ink px-4 py-3 text-sm font-medium',
+          isUser ? 'bg-ink text-white' : 'bg-[#9B8CF0] text-ink shadow-brutal-sm'
         )}
       >
         {isUser ? (
           content
         ) : (
-          <div className="prose-chat">
+          <div className="prose-chat text-ink">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
           </div>
         )}

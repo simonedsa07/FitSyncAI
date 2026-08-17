@@ -109,8 +109,8 @@ function Heatmap({ logs }: { logs: { completed_at: string }[] }) {
                 className={cn(
                   'h-3 w-3 rounded-sm border transition-colors',
                   d.completed
-                    ? 'bg-[#1D9E75] border-[#1D9E75]'
-                    : 'bg-white dark:bg-[#22201C] border-ink/10'
+                    ? 'bg-[#2BB893] border-[#2BB893]'
+                    : 'bg-white dark:bg-[#252033] border-ink/10'
                 )}
                 title={`${d.date.toDateString()}: ${d.completed ? 'Completed' : 'No workout'}`}
               />
@@ -266,16 +266,16 @@ export default function ProgressPage() {
           transition={{ duration: 0.4 }}
           className="col-span-1"
         >
-          <Card className="flex flex-col justify-between h-full bg-[#D85A30]/5">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-coral mb-3">
+          <Card className="flex flex-col justify-between h-full bg-[#F2679B]/10 border-2 border-ink shadow-brutal-sm">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#F2679B] mb-3">
               <span>🔥</span>
               <span>Streak Level</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-display text-4xl font-extrabold text-coral">
+              <span className="font-display text-4xl font-extrabold text-[#F2679B]">
                 {streakCount} {streakCount === 1 ? 'Day' : 'Days'}
               </span>
-              <span className="text-xs font-bold text-ink/75 mt-2 bg-[#D85A30]/10 border border-[#D85A30]/20 rounded px-2.5 py-1 w-fit">
+              <span className="text-xs font-bold text-ink mt-2 bg-[#F2679B] text-white border-2 border-ink rounded-full px-3 py-1 w-fit shadow-brutal-sm">
                 {badgeText}
               </span>
             </div>
@@ -342,16 +342,16 @@ export default function ProgressPage() {
             ) : (
               <ResponsiveContainer width="100%" height={220}>
                 <LineChart data={weightHistory}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#00000015" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(245,230,200,0.15)" />
                   <XAxis dataKey="date" tick={{ fontSize: 12 }} />
                   <YAxis tick={{ fontSize: 12 }} domain={['auto', 'auto']} />
                   <Tooltip />
                   <Line
                     type="monotone"
                     dataKey="weight"
-                    stroke="#378ADD"
+                    stroke="#4A9FE8"
                     strokeWidth={3}
-                    dot={{ r: 5, stroke: '#14121A', strokeWidth: 2 }}
+                    dot={{ r: 5, stroke: '#2C2C2A', strokeWidth: 2 }}
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -372,11 +372,11 @@ export default function ProgressPage() {
             </h3>
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={calorieHistory}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#00000015" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(245,230,200,0.15)" />
                 <XAxis dataKey="day" tick={{ fontSize: 12 }} />
                 <YAxis tick={{ fontSize: 12 }} allowDecimals={false} />
                 <Tooltip />
-                <Bar dataKey="calories" fill="#378ADD" stroke="#14121A" strokeWidth={2} radius={[6, 6, 0, 0]} />
+                <Bar dataKey="calories" fill="#4A9FE8" stroke="#2C2C2A" strokeWidth={2} radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </Card>
@@ -389,8 +389,8 @@ export default function ProgressPage() {
           transition={{ duration: 0.4, delay: 0.4 }}
           className="col-span-1"
         >
-          <Card className="bg-[#D85A30]/5 h-full flex flex-col justify-between">
-            <p className="mb-2 text-xs font-bold uppercase tracking-wide text-coral">Log New Weight</p>
+          <Card className="bg-[#E8734A]/10 border-2 border-ink h-full flex flex-col justify-between">
+            <p className="mb-2 text-xs font-bold uppercase tracking-wide text-ink">Log New Weight</p>
             <div className="flex gap-2 items-center mt-4">
               <Input
                 type="number"
@@ -398,7 +398,7 @@ export default function ProgressPage() {
                 value={weightInput}
                 onChange={(e) => setWeightInput(e.target.value)}
               />
-              <Button variant="dark" onClick={logWeight} disabled={saving}>
+              <Button variant="accent" onClick={logWeight} disabled={saving}>
                 Add
               </Button>
             </div>
