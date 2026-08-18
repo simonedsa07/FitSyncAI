@@ -4,7 +4,7 @@ import { WorkoutPlan } from '@/types/workout';
 interface WorkoutState {
   plan: WorkoutPlan | null;
   isGenerating: boolean;
-  selectedDay: string | null;
+  selectedDay: string | null | undefined;
   setPlan: (plan: WorkoutPlan | null) => void;
   setGenerating: (val: boolean) => void;
   setSelectedDay: (day: string | null) => void;
@@ -14,7 +14,7 @@ interface WorkoutState {
 export const useWorkoutStore = create<WorkoutState>((set) => ({
   plan: null,
   isGenerating: false,
-  selectedDay: null,
+  selectedDay: undefined,
   setPlan: (plan) => set({ plan }),
   setGenerating: (isGenerating) => set({ isGenerating }),
   setSelectedDay: (selectedDay) => set({ selectedDay }),

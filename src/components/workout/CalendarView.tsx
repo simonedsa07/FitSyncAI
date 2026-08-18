@@ -15,7 +15,8 @@ export function CalendarView({ plan, onComplete }: CalendarViewProps) {
   const days = plan?.days ?? [];
   const selectedDay = useWorkoutStore((s) => s.selectedDay);
   const setSelectedDay = useWorkoutStore((s) => s.setSelectedDay);
-  const openDay = selectedDay ?? todayLabel();
+  // If undefined (initial state), show today. If null (user closed it), show nothing.
+  const openDay = selectedDay === undefined ? todayLabel() : selectedDay;
 
   if (days.length === 0) {
     return (
