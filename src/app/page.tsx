@@ -14,37 +14,37 @@ const FEATURES = [
     icon: '🧠',
     title: 'AI-Generated Plans',
     desc: 'A weekly workout plan built around your goal, activity level, and BMI — regenerate anytime.',
-    color: '#9B8CF0', // Lavender (AI content)
+    color: 'var(--accent)', // Lavender (AI content)
   },
   {
     icon: '💬',
     title: 'Coach That Talks Back',
     desc: 'Ask FitSync AI anything, mid-workout or mid-doubt. Real answers, not a static FAQ.',
-    color: '#9B8CF0', // Lavender (AI content)
+    color: 'var(--accent)', // Lavender (AI content)
   },
   {
     icon: '📈',
     title: 'Progress You Can See',
     desc: 'Weight trend lines, weekly consistency bars — the shape of your effort over time.',
-    color: '#4A9FE8', // Sky Focus (Data Viz)
+    color: 'var(--accent)', // Sky Focus (Data Viz)
   },
   {
     icon: '🎵',
     title: 'Spotify-Matched Playlists',
     desc: 'Connect Spotify and get a playlist generated to match your workout intensity.',
-    color: '#2BB893', // Mint Spark (Completed/Trends)
+    color: 'var(--accent)', // Mint Spark (Completed/Trends)
   },
   {
     icon: '🎨',
     title: 'Made It Yours',
     desc: 'Four accent themes, light or dark — pick a look and it stays exactly how you left it.',
-    color: '#F2679B', // Bubblegum Pink (Gamification)
+    color: 'var(--accent)', // Bubblegum Pink (Gamification)
   },
   {
     icon: '🔒',
     title: 'Actually Private',
     desc: 'Row-level security on every table. Your data is yours — not visible to any other user.',
-    color: '#4A9FE8', // Sky Focus
+    color: 'var(--accent)', // Sky Focus
     comingSoon: true,
   },
 ];
@@ -114,7 +114,7 @@ export default function LandingPage() {
               transition={{ duration: 0.3 }}
               className="inline-flex items-center gap-2 rounded-full border-2 border-ink bg-white px-4 py-1.5 shadow-brutal-sm"
             >
-              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: '#2BB893' }} />
+              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: 'var(--accent)' }} />
               <span className="text-xs font-bold uppercase tracking-wider text-ink">
                 AI-Powered Personal Training
               </span>
@@ -180,7 +180,7 @@ export default function LandingPage() {
               <div className="brutal-card p-6 shadow-brutal-lg">
                 <div className="flex items-center justify-between border-b-2 border-ink pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl2 border-2 border-ink bg-[#9B8CF0] text-ink">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl2 border-2 border-ink bg-accent text-ink">
                       🤖
                     </div>
                     <div>
@@ -188,13 +188,13 @@ export default function LandingPage() {
                       <p className="text-xs text-ink/60">Active Now</p>
                     </div>
                   </div>
-                  <span className="rounded-full border-2 border-ink bg-[#F2679B] px-3 py-1 text-xs font-bold text-white shadow-brutal-sm">
+                  <span className="rounded-full border-2 border-ink bg-accent px-3 py-1 text-xs font-bold text-white shadow-brutal-sm">
                     🔥 5 Day Streak
                   </span>
                 </div>
 
                 <div className="mt-4 space-y-3">
-                  <div className="rounded-xl2 border-2 border-ink p-3 text-xs font-medium bg-[#9B8CF0]/15">
+                  <div className="rounded-xl2 border-2 border-ink p-3 text-xs font-medium bg-accent/15">
                     <p className="font-bold text-ink">Today&apos;s Workout</p>
                     <p className="mt-1 text-ink/80">Upper Body Power • 45 min • 4 exercises</p>
                   </div>
@@ -215,7 +215,7 @@ export default function LandingPage() {
                         </div>
                         <span
                           className={`flex h-5 w-5 items-center justify-center rounded-full border-2 border-ink font-bold text-[10px] ${
-                            ex.done ? 'bg-[#2BB893] text-white' : 'bg-white text-transparent'
+                            ex.done ? 'bg-accent text-white' : 'bg-white text-transparent'
                           }`}
                         >
                           ✓

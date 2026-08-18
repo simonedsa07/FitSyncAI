@@ -144,7 +144,7 @@ export default function DashboardPage() {
           <p className="mt-1 text-ink/70">Let&apos;s crush today&apos;s session 💪</p>
         </div>
         {streakCount > 0 && (
-          <div className="flex items-center gap-2 rounded-full border-2 border-ink bg-[#F2679B]/15 px-4 py-2 text-sm font-extrabold text-[#F2679B] transition-all hover:scale-105 shadow-brutal-sm">
+          <div className="flex items-center gap-2 rounded-full border-2 border-ink bg-accent/15 px-4 py-2 text-sm font-extrabold text-accent transition-all hover:scale-105 shadow-brutal-sm">
             <span>🔥</span>
             <span>{streakCount} Day Streak</span>
           </div>
@@ -194,8 +194,8 @@ export default function DashboardPage() {
           transition={{ duration: 0.4, delay: 0.26 }}
           className="md:col-span-2"
         >
-          <Card className="bg-[#9B8CF0]/15 border-2 border-ink h-full">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#9B8CF0] mb-3">
+          <Card className="bg-accent/15 border-2 border-ink h-full">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-accent mb-3">
               <span>🔮</span>
               <span>AI Coaching Insight</span>
             </div>

@@ -73,7 +73,7 @@ export function WorkoutCard({ day, onMarkDone }: WorkoutCardProps) {
           disabled={day.completed}
           className={cn(
             'transition-colors',
-            day.completed && 'bg-[#2BB893] hover:bg-[#2BB893] text-white border-2 border-ink shadow-brutal-sm opacity-100 cursor-default'
+            day.completed && 'bg-accent hover:bg-accent text-white border-2 border-ink shadow-brutal-sm opacity-100 cursor-default'
           )}
         >
           {day.completed ? 'Done ✓' : '⊙ Mark done'}

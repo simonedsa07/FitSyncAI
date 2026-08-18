@@ -41,7 +41,7 @@ export function DayCard({ day, open, onToggle, onComplete }: DayCardProps) {
             style={{ color: open ? 'rgba(20,18,26,0.7)' : undefined }}
           >
             🔥 {day.est_calories} cal · {day.difficulty}
-            {day.completed && <span className="ml-2 font-bold text-[#2BB893]">✓ Done</span>}
+            {day.completed && <span className="ml-2 font-bold text-accent">✓ Done</span>}
           </p>
         </div>
         <span className="text-xl" style={open ? { color: '#14121A' } : undefined}>
@@ -74,7 +74,7 @@ export function DayCard({ day, open, onToggle, onComplete }: DayCardProps) {
                 variant={day.completed ? 'ghost' : 'accent'}
                 className={cn(
                   'w-full transition-colors',
-                  day.completed && 'bg-[#2BB893] hover:bg-[#2BB893] text-white border-2 border-ink shadow-brutal-sm opacity-100 cursor-default'
+                  day.completed && 'bg-accent hover:bg-accent text-white border-2 border-ink shadow-brutal-sm opacity-100 cursor-default'
                 )}
                 onClick={() => onComplete(day.day)}
                 disabled={day.completed}

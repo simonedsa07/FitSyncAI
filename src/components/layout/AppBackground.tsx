@@ -7,7 +7,7 @@ export function AppBackground() {
       <div
         className="absolute h-96 w-96 rounded-full animate-blob-1"
         style={{
-          background: '#E8734A',
+          background: 'var(--accent)',
           filter: 'blur(95px)',
           opacity: 'var(--blob-opacity-1, 0.18)',
           top: '-10%',
@@ -19,7 +19,7 @@ export function AppBackground() {
       <div
         className="absolute h-[420px] w-[420px] rounded-full animate-blob-2"
         style={{
-          background: '#9B8CF0',
+          background: 'var(--accent)',
           filter: 'blur(100px)',
           opacity: 'var(--blob-opacity-2, 0.15)',
           top: '40%',
@@ -31,7 +31,7 @@ export function AppBackground() {
       <div
         className="absolute h-80 w-80 rounded-full animate-blob-3"
         style={{
-          background: '#2BB893',
+          background: 'var(--accent)',
           filter: 'blur(80px)',
           opacity: 'var(--blob-opacity-3, 0.12)',
           bottom: '-10%',

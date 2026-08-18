@@ -8,7 +8,7 @@ export interface ThemeDefinition {
 
 export const THEMES: ThemeDefinition[] = [
   { id: 'bubblegum-pink', label: 'Bubblegum Pink', swatch: '#F2679B' },
-  { id: 'cyan', label: 'Cyan', swatch: '#06b6d4' },
+  { id: 'cyan', label: 'Cyan', swatch: '#00E5FF' },
   { id: 'purple', label: 'Purple', swatch: '#9B8CF0' },
   { id: 'sky-blue', label: 'Sky Blue', swatch: '#4A9FE8' },
 ];

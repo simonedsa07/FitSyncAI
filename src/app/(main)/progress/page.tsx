@@ -109,7 +109,7 @@ function Heatmap({ logs }: { logs: { completed_at: string }[] }) {
                 className={cn(
                   'h-3 w-3 rounded-sm border transition-colors',
                   d.completed
-                    ? 'bg-[#2BB893] border-[#2BB893]'
+                    ? 'bg-accent border-accent'
                     : 'bg-white dark:bg-[#252033] border-ink/10'
                 )}
                 title={`${d.date.toDateString()}: ${d.completed ? 'Completed' : 'No workout'}`}
@@ -266,16 +266,16 @@ export default function ProgressPage() {
           transition={{ duration: 0.4 }}
           className="col-span-1"
         >
-          <Card className="flex flex-col justify-between h-full bg-[#F2679B]/10 border-2 border-ink shadow-brutal-sm">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#F2679B] mb-3">
+          <Card className="flex flex-col justify-between h-full bg-accent/10 border-2 border-ink shadow-brutal-sm">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-accent mb-3">
               <span>🔥</span>
               <span>Streak Level</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-display text-4xl font-extrabold text-[#F2679B]">
+              <span className="font-display text-4xl font-extrabold text-accent">
                 {streakCount} {streakCount === 1 ? 'Day' : 'Days'}
               </span>
-              <span className="text-xs font-bold text-ink mt-2 bg-[#F2679B] text-white border-2 border-ink rounded-full px-3 py-1 w-fit shadow-brutal-sm">
+              <span className="text-xs font-bold text-ink mt-2 bg-accent text-white border-2 border-ink rounded-full px-3 py-1 w-fit shadow-brutal-sm">
                 {badgeText}
               </span>
             </div>
@@ -349,7 +349,7 @@ export default function ProgressPage() {
                   <Line
                     type="monotone"
                     dataKey="weight"
-                    stroke="#4A9FE8"
+                    stroke='var(--accent)'
                     strokeWidth={3}
                     dot={{ r: 5, stroke: '#2C2C2A', strokeWidth: 2 }}
                   />
@@ -376,7 +376,7 @@ export default function ProgressPage() {
                 <XAxis dataKey="day" tick={{ fontSize: 12 }} />
                 <YAxis tick={{ fontSize: 12 }} allowDecimals={false} />
                 <Tooltip />
-                <Bar dataKey="calories" fill="#4A9FE8" stroke="#2C2C2A" strokeWidth={2} radius={[6, 6, 0, 0]} />
+                <Bar dataKey="calories" fill='var(--accent)' stroke="#2C2C2A" strokeWidth={2} radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </Card>
@@ -389,7 +389,7 @@ export default function ProgressPage() {
           transition={{ duration: 0.4, delay: 0.4 }}
           className="col-span-1"
         >
-          <Card className="bg-[#E8734A]/10 border-2 border-ink h-full flex flex-col justify-between">
+          <Card className="bg-accent/10 border-2 border-ink h-full flex flex-col justify-between">
             <p className="mb-2 text-xs font-bold uppercase tracking-wide text-ink">Log New Weight</p>
             <div className="flex gap-2 items-center mt-4">
               <Input
