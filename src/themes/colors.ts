@@ -1,4 +1,4 @@
-export type ThemeName = 'pastel-pink' | 'butter-yellow' | 'subtle-green' | 'pastel-purple';
+export type ThemeName = 'bubblegum-pink' | 'cyan' | 'purple' | 'sky-blue';
 
 export interface ThemeDefinition {
   id: ThemeName;
@@ -7,10 +7,10 @@ export interface ThemeDefinition {
 }
 
 export const THEMES: ThemeDefinition[] = [
-  { id: 'pastel-pink', label: 'Sunset Coral', swatch: '#E8734A' },
-  { id: 'butter-yellow', label: 'Dreamy Lavender', swatch: '#9B8CF0' },
-  { id: 'subtle-green', label: 'Mint Spark', swatch: '#2BB893' },
-  { id: 'pastel-purple', label: 'Sky Focus', swatch: '#4A9FE8' },
+  { id: 'bubblegum-pink', label: 'Bubblegum Pink', swatch: '#F2679B' },
+  { id: 'cyan', label: 'Cyan', swatch: '#06b6d4' },
+  { id: 'purple', label: 'Purple', swatch: '#9B8CF0' },
+  { id: 'sky-blue', label: 'Sky Blue', swatch: '#4A9FE8' },
 ];
 
-export const DEFAULT_THEME: ThemeName = 'pastel-pink';
+export const DEFAULT_THEME: ThemeName = 'bubblegum-pink';
