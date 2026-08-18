@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { WorkoutPlan } from '@/types/workout';
 import { DayCard } from './DayCard';
 import { todayLabel, cn } from '@/lib/utils';
+import { useWorkoutStore } from '@/store/useWorkoutStore';
 
 interface CalendarViewProps {
   plan: WorkoutPlan;
@@ -13,7 +13,9 @@ interface CalendarViewProps {
 
 export function CalendarView({ plan, onComplete }: CalendarViewProps) {
   const days = plan?.days ?? [];
-  const [openDay, setOpenDay] = useState<string | null>(todayLabel());
+  const selectedDay = useWorkoutStore((s) => s.selectedDay);
+  const setSelectedDay = useWorkoutStore((s) => s.setSelectedDay);
+  const openDay = selectedDay ?? todayLabel();
 
   if (days.length === 0) {
     return (
@@ -40,7 +42,7 @@ export function CalendarView({ plan, onComplete }: CalendarViewProps) {
             <DayCard
               day={day}
               open={isOpen}
-              onToggle={() => setOpenDay((prev) => (prev === day.day ? null : day.day))}
+              onToggle={() => setSelectedDay(isOpen ? null : day.day)}
               onComplete={onComplete}
             />
           </motion.div>

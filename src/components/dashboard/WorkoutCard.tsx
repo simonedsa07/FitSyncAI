@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { WorkoutDay } from '@/types/workout';
 import Link from 'next/link';
 import { LogoMark } from '@/components/layout/LogoMark';
-import { cn } from '@/lib/utils';
+import { cn, todayLabel } from '@/lib/utils';
 
 interface WorkoutCardProps {
   day: WorkoutDay | null;
@@ -40,7 +40,7 @@ export function WorkoutCard({ day, onMarkDone }: WorkoutCardProps) {
       <div className="mb-4 flex items-start justify-between">
         <div>
           <p className="text-xs font-bold uppercase tracking-wide" style={ACCENT_TEXT_60}>
-            TODAY · {day.day}
+            {day.day === todayLabel() ? 'TODAY' : 'SELECTED'} · {day.day}
           </p>
           <h2 className="font-display text-2xl font-extrabold" style={ACCENT_TEXT}>
             {day.title}

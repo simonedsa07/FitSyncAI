@@ -35,7 +35,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       <motion.aside
         aria-label="Music player"
         aria-hidden={!musicOpen}
-        animate={musicOpen ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 12, scale: 0.96 }}
+        animate={musicOpen ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0.01, y: 12, scale: 0.96 }}
         transition={{ duration: 0.18 }}
         className={`fixed inset-x-4 bottom-[13rem] z-40 max-h-[calc(100vh-16rem)] overflow-y-auto md:inset-x-auto md:bottom-20 md:left-6 md:w-[22rem] md:max-h-[calc(100vh-7rem)] ${
           musicOpen ? '' : 'pointer-events-none'

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useUserStore } from '@/store/useUserStore';
 import { useWorkout } from '@/hooks/useWorkout';
+import { useWorkoutStore } from '@/store/useWorkoutStore';
 import { WorkoutCard } from '@/components/dashboard/WorkoutCard';
 import { StatsCard } from '@/components/dashboard/StatsCard';
 import Link from 'next/link';
@@ -77,7 +78,8 @@ export default function DashboardPage() {
   }, [profile?.id]);
 
   const weekDays = plan?.days ?? [];
-  const today = weekDays.find((d) => d.day === todayLabel()) ?? null;
+  const selectedDay = useWorkoutStore((s) => s.selectedDay);
+  const activeDay = weekDays.find((d) => d.day === (selectedDay ?? todayLabel())) ?? weekDays.find((d) => d.day === todayLabel()) ?? null;
   const completedCount = weekDays.filter((d) => d.completed && !d.is_rest).length;
   // Use the profile setting as the authoritative target; fall back to plan days
   // only when profile hasn't loaded yet.
@@ -160,7 +162,7 @@ export default function DashboardPage() {
           transition={{ duration: 0.45, delay: 0.05 }}
           className="md:col-span-2 md:row-span-2 h-full"
         >
-          <WorkoutCard day={today} onMarkDone={() => today && completeDay(today.day)} />
+          <WorkoutCard day={activeDay} onMarkDone={() => activeDay && completeDay(activeDay.day)} />
         </motion.div>
 
         {/* Workouts Stat Tile: 1x1 */}

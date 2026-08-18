@@ -3,39 +3,36 @@
 export function AppBackground() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-50 overflow-hidden">
-      {/* Blob 1: Sunset Coral (#E8734A) */}
+      {/* Blob 1 */}
       <div
-        className="absolute h-96 w-96 rounded-full animate-blob-1"
+        className="absolute h-[600px] w-[600px] animate-blob-1"
         style={{
-          background: 'var(--accent)',
-          filter: 'blur(95px)',
+          background: 'radial-gradient(circle, var(--accent) 0%, transparent 60%)',
           opacity: 'var(--blob-opacity-1, 0.18)',
-          top: '-10%',
-          left: '-10%',
+          top: '-15%',
+          left: '-15%',
           willChange: 'transform',
         }}
       />
-      {/* Blob 2: Dreamy Lavender (#9B8CF0) */}
+      {/* Blob 2 */}
       <div
-        className="absolute h-[420px] w-[420px] rounded-full animate-blob-2"
+        className="absolute h-[700px] w-[700px] animate-blob-2"
         style={{
-          background: 'var(--accent)',
-          filter: 'blur(100px)',
+          background: 'radial-gradient(circle, var(--accent) 0%, transparent 60%)',
           opacity: 'var(--blob-opacity-2, 0.15)',
-          top: '40%',
-          right: '-15%',
+          top: '30%',
+          right: '-20%',
           willChange: 'transform',
         }}
       />
-      {/* Blob 3: Mint Spark (#2BB893) */}
+      {/* Blob 3 */}
       <div
-        className="absolute h-80 w-80 rounded-full animate-blob-3"
+        className="absolute h-[500px] w-[500px] animate-blob-3"
         style={{
-          background: 'var(--accent)',
-          filter: 'blur(80px)',
+          background: 'radial-gradient(circle, var(--accent) 0%, transparent 60%)',
           opacity: 'var(--blob-opacity-3, 0.12)',
-          bottom: '-10%',
-          left: '25%',
+          bottom: '-15%',
+          left: '15%',
           willChange: 'transform',
         }}
       />

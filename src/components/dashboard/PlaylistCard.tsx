@@ -106,7 +106,6 @@ export function PlaylistCard() {
                       height={height}
                       frameBorder="0"
                       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      loading="lazy"
                       title={`${platformInfo?.label} playlist`}
                     />
                   </div>

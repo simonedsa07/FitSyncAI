@@ -17,8 +17,7 @@ export function AnimatedBlob({
       style={{
         position: 'absolute',
         borderRadius: '50%',
-        background: color,
-        filter: 'blur(60px)',
+        background: `radial-gradient(circle, ${color} 0%, transparent 70%)`,
         opacity: 0.55,
       }}
       animate={{
